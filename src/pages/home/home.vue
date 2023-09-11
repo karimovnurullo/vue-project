@@ -1,11 +1,14 @@
 <template name="Home">
   <div :class="$style.container">
     <Navbar />
+    <div :class="$style.wrapper">
+      <Book />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { Navbar } from "../../components";
+import { Navbar, Book } from "../../components";
 </script>
 
 <style scoped module>
