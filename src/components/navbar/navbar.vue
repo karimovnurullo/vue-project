@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
-      <div :class="$style.logo">Books</div>
+      <div :class="$style.logo">Books <span>beta</span></div>
       <div :class="$style.center">
         <input
           type="search"
@@ -9,7 +9,7 @@
           placeholder="Search book..."
           @input="(e) => handleSearch(e.target.value)"
         />
-        <div :class="$style.result">{{ result }} <span>books found</span></div>
+        <div :class="$style.result">{{ result }} <span>found</span></div>
       </div>
       <div :class="$style.profile" @click="handleDropdown">
         {{ user && user.displayName ? user.displayName.charAt(0) : "" }}

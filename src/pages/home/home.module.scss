@@ -36,6 +36,12 @@
    }
 }
 
+@media(max-width: 667px) {
+   .container {
+      top: 85px;
+   }
+}
+
 @media(max-width: 540px) {
    .container {
       .wrapper {
@@ -53,7 +59,7 @@
    }
 }
 
-@media(max-width: 400px) {
+@media(max-width: 415px) {
    .container {
       .wrapper {
          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));

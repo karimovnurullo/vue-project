@@ -6,12 +6,13 @@
    width: 100%;
    height: 80px;
    user-select: none;
-   border-bottom: 1px solid rgba(17, 17, 17, 0.179);
    z-index: 9999;
    background-color: #fff;
+   border-bottom: 1px solid rgba(17, 17, 17, 0.179);
    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 
    .navbar {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -21,14 +22,26 @@
       margin: auto;
 
       .logo {
+         position: relative;
          font-size: 32px;
          font-weight: 600;
+         cursor: pointer;
+
+         span {
+            position: absolute;
+            font-size: 12px;
+            padding: 2px 8px;
+            background-color: rgba(0, 106, 255, 1);
+            color: #fff;
+            border-radius: 20px;
+         }
       }
 
       .center {
          display: flex;
          gap: 40px;
          align-items: center;
+         z-index: 99;
 
          .search {
             height: 45px;
@@ -84,6 +97,7 @@
             flex-direction: column;
             display: none;
             overflow: hidden;
+            z-index: 999999999;
 
             .item {
                font-size: 12px;
@@ -164,6 +178,73 @@
                   font-size: 18px;
                }
             }
+         }
+      }
+   }
+}
+
+@media(max-width: 667px) {
+   .navbarWrapper {
+      height: 50px;
+      border-bottom: 0;
+
+      .navbar {
+         z-index: 99999;
+         box-shadow: none;
+
+         .logo {
+            position: relative;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+
+            span {
+               position: absolute;
+               font-size: 8px;
+               padding: 2px 8px;
+               background-color: rgba(0, 106, 255, 1);
+               color: #fff;
+               border-radius: 20px;
+            }
+         }
+
+         .center {
+            z-index: 1;
+            gap: 15px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            padding: 0 16px;
+            background-color: #fff;
+            justify-content: center;
+            border-bottom: 1px solid rgba(17, 17, 17, 0.179);
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+
+            .search {
+               width: 100%;
+               height: 90%;
+               border-radius: 10px;
+            }
+
+            .result {
+               flex: 1;
+               display: flex;
+               align-items: center;
+               font-size: 16px;
+
+               span {
+                  margin-left: 6px;
+                  font-size: 12px;
+               }
+            }
+         }
+
+         .profile {
+            font-size: 16px;
+            width: 35px;
+            height: 35px;
          }
       }
    }
