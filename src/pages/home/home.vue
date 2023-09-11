@@ -33,11 +33,13 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { Navbar, Book } from "../../components";
 const books = ref([]);
+const search = ref("programming");
+const startIndex = ref(1);
 
 const getBooks = async () => {
   try {
     const { data } = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q=programming"
+      `https://www.googleapis.com/books/v1/volumes?q=${search.value}}&maxResults=40&startIndex=1`
     );
     books.value = data.items;
     console.log("Salom");
