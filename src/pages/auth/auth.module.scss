@@ -1,0 +1,123 @@
+.login {
+   // position: absolute;
+   // top: 0;
+   // left: 0;
+   width: 100%;
+   height: 100vh;
+   padding: 50px 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
+   background-color: #fff;
+   user-select: none;
+
+   .title {
+      font-size: 50px;
+      color: rgba(0, 106, 255, 1);
+      margin-bottom: 20px;
+   }
+
+   .form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(17, 17, 17, 0.179);
+
+      .fogotPassword {
+         font-size: 14px;
+         color: rgba(0, 106, 255, 1);
+         cursor: pointer;
+         margin-top: 10px;
+      }
+
+      .button {
+         width: 398px;
+         height: 60px;
+         border-radius: 10px;
+         background: #E7F0FF;
+         margin-top: 20px;
+         border: 1px solid rgba(17, 17, 17, 0.179);
+         font-size: 24px;
+         color: rgba(0, 106, 255, 1);
+         cursor: pointer;
+
+         &:hover {
+            border-color: rgba(0, 106, 255, 1);
+         }
+      }
+
+      .haveAccount {
+         margin-top: 20px;
+         color: rgba(17, 17, 17, 0.36);
+      }
+
+      .registerLink {
+         font-weight: 600;
+         color: rgba(0, 106, 255, 1);
+
+      }
+
+      .input {
+         width: 398px;
+         height: 50px;
+         border-radius: 10px;
+         background: rgba(17, 17, 17, 0.02);
+         padding: 0 20px;
+         border: 1px solid rgba(17, 17, 17, 0.179);
+         font-size: 22px;
+         outline-color: rgba(0, 106, 255, 1);
+
+         &::placeholder {
+            color: rgba(17, 17, 17, 0.36);
+            font-size: 18px;
+         }
+      }
+
+
+      .label {
+         color: #111111c9;
+         font-size: 20px;
+         margin-top: 10px;
+         cursor: pointer;
+      }
+
+      .or {
+         text-align: center;
+         margin-top: 20px;
+      }
+   }
+
+}
+
+@media(max-width: 500px) {
+   .login {
+      .form {
+         width: 92%;
+         padding: 16px;
+
+         .input,
+         .button {
+            width: 100%;
+            font-size: 20px;
+         }
+
+         .button {
+            height: 50px;
+         }
+
+         .label {
+            font-size: 18px;
+
+         }
+
+         .haveAccount {
+            font-size: 14px;
+         }
+
+      }
+   }
+}

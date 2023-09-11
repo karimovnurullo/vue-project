@@ -2,15 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage, ref } from "firebase/storage";
-import config from "../config";
 
 const firebaseConfig = {
-  apiKey: config.apiKey,
-  authDomain: config.authDomain,
-  projectId: config.projectId,
-  storageBucket: config.storageBucket,
-  messagingSenderId: config.messagingSenderId,
-  appId: config.appId,
+  apiKey: "AIzaSyD4pXe1PHkF1Yrop-kgiF5GrN_vt7kkD1Y",
+  authDomain: "dev-nurullo.firebaseapp.com",
+  projectId: "dev-nurullo",
+  storageBucket: "dev-nurullo.appspot.com",
+  messagingSenderId: "58114059181",
+  appId: "1:58114059181:web:f79c5b6b4186b88f3bcf24",
 };
 
 const app = initializeApp(firebaseConfig);
