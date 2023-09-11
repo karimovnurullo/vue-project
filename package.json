@@ -1,0 +1,28 @@
+{
+  "name": "vue--test-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "firebase": "^10.3.1",
+    "oh-vue-icons": "^1.0.0-rc3",
+    "vee-validate": "3",
+    "vue": "^3.3.4",
+    "vue-hooks-form": "^0.3.0",
+    "vue-router": "4",
+    "vue-toast-notification": "^3.1.1",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "sass": "^1.66.1",
+    "sass-loader": "^13.3.2",
+    "vite": "^4.4.5",
+    "webpack": "^5.88.2"
+  }
+}
