@@ -2,6 +2,8 @@
   <div :class="$style.login">
     <div :class="$style.title">Login page</div>
     <form :class="$style.form" @submit.prevent="handleLogin">
+      <GoogleButton />
+      <h3 :class="$style.or">or</h3>
       <label for="email" :class="$style.label">Email</label>
       <input
         type="text"
@@ -27,8 +29,6 @@
         >
         in it
       </p>
-      <h3 :class="$style.or">or</h3>
-      <GoogleButton />
     </form>
   </div>
 </template>

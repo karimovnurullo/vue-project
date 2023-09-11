@@ -6,12 +6,12 @@
    height: 100vh;
    padding: 50px 0;
    display: flex;
-   justify-content: center;
    align-items: center;
    flex-direction: column;
    gap: 10px;
    background-color: #fff;
    user-select: none;
+   overflow: auto;
 
    .title {
       font-size: 50px;
@@ -87,7 +87,7 @@
 
       .or {
          text-align: center;
-         margin-top: 20px;
+         margin-top: 10px;
       }
    }
 
@@ -95,6 +95,11 @@
 
 @media(max-width: 500px) {
    .login {
+
+      .title {
+         font-size: 37px;
+      }
+
       .form {
          width: 92%;
          padding: 16px;

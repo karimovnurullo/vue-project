@@ -1,40 +1,20 @@
 <template name="Home">
-  <!-- <div :class="$style.container">
-    <Navbar />
-    <div :class="$style.todo">
-      <form
-        :class="$style.nav"
-        @submit.prevent="edit ? handleEditForm() : handleSubmit()"
-      >
-        <input v-model="text" type="text" placeholder="Todo" />
-        <button v-text="edit ? 'Edit' : 'Add'"></button>
-      </form>
-      <main>
-        <TodoItem
-          v-for="todo in list"
-          :key="todo.id"
-          :todo="todo"
-          :handleDelete="handleDelete"
-          :handleEdit="handleEdit"
-        />
-      </main>
-    </div>
-  </div> -->
   <div :class="$style.container">
-    <Navbar />
+    <Navbar :handleSearch="handleSearch" :result="result" />
     <div :class="$style.wrapper">
       <Book v-for="book in books" :book="book" :key="book.id" />
+      <div v-if="result === 0" :class="$style.notFound">Not found books</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 import { Navbar, Book } from "../../components";
 const books = ref([]);
+const result = ref(0);
 const search = ref("programming");
-const startIndex = ref(1);
 
 const getBooks = async () => {
   try {
@@ -42,13 +22,21 @@ const getBooks = async () => {
       `https://www.googleapis.com/books/v1/volumes?q=${search.value}}&maxResults=40&startIndex=1`
     );
     books.value = data.items;
-    console.log("Salom");
+    result.value = data.items ? data.items.length : 0;
   } catch (error) {
     console.log(error.message);
   }
 };
 
+const handleSearch = async (value) => {
+  console.log(value);
+  search.value = value;
+};
+
 onMounted(() => {
+  getBooks();
+});
+watch(search, () => {
   getBooks();
 });
 </script>

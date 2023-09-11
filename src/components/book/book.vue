@@ -4,7 +4,7 @@
       <img :src="book.image" alt="" />
     </div>
     <div :class="$style.contentBox">
-      <h3 :class="$style.title">Karimov book</h3>
+      <h3 :class="$style.title">{{ book.title }}</h3>
       <p :class="$style.description">{{ book.description }}</p>
       <div :class="$style.info">
         <div :class="$style.item">

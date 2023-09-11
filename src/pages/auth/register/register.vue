@@ -2,6 +2,8 @@
   <div :class="$style.login">
     <div :class="$style.title">Register page</div>
     <form :class="$style.form" @submit.prevent="handleLogin">
+      <GoogleButton />
+      <h3 :class="$style.or">or</h3>
       <label for="name" :class="$style.label">Name</label>
       <input
         type="text"
@@ -30,13 +32,11 @@
       <button type="submit" :class="$style.button">Register</button>
       <p :class="$style.haveAccount">
         Don't have an account?
-        <router-link to="/auth/register" :class="$style.registerLink"
+        <router-link to="/auth/login" :class="$style.registerLink"
           >login</router-link
         >
         in it
       </p>
-      <h3 :class="$style.or">or</h3>
-      <GoogleButton />
     </form>
   </div>
 </template>
