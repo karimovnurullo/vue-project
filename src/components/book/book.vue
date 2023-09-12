@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.book">
+  <div :class="$style.book" @click="handleClick(book.id)">
     <div :class="$style.imgBox">
       <img :src="book.image" alt="" />
     </div>
@@ -32,11 +32,18 @@
 
 <script setup>
 import { defineProps } from "vue";
+import { useRouter } from "vue-router";
 import { Mappers } from "../../modules/home";
+
+const router = useRouter();
 
 const props = defineProps({
   book: Object,
 });
+
+const handleClick = (id) => {
+  router.push(`/book/detail/${id}`);
+};
 
 const book = Mappers.Book(props.book);
 </script>

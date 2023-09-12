@@ -1,7 +1,5 @@
 import get from "lodash/get";
 
-import { boolean } from "yup";
-
 export const Book = (item) => ({
   id: get(item, "id") || "",
   title: get(item, "volumeInfo.title") || "",
@@ -14,6 +12,6 @@ export const Book = (item) => ({
   image: get(item, "volumeInfo.imageLinks.thumbnail") || "",
   authors: get(item, "volumeInfo.authors") || [],
   downloadPdf: get(item, "accessInfo.pdf.acsTokenLink") || "",
-  accessDownloadPdf: get(item, "accessInfo.pdf.isAvailable") || boolean,
+  accessDownloadPdf: get(item, "accessInfo.pdf.isAvailable") || Boolean,
   selfLink: get(item, "selfLink") || boolean,
 });

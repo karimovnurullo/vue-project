@@ -1,7 +1,9 @@
 <template>
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
-      <div :class="$style.logo">Books <span>beta</span></div>
+      <div :class="$style.logo" @click="handleLogo">
+        Books <span>beta</span>
+      </div>
       <div :class="isSearch === true ? $style.center : $style.centerNone">
         <input
           type="search"
@@ -55,6 +57,9 @@ const handleDropdown = async () => {
 const handleLogout = () => {
   logout();
   router.push("/auth/login");
+};
+const handleLogo = () => {
+  router.push("/");
 };
 
 onMounted(() => {

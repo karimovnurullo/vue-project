@@ -2,8 +2,17 @@
   <div :class="$style.container">
     <Navbar :handleSearch="handleSearch" :result="result" :isSearch="true" />
     <div :class="$style.wrapper">
-      <Book v-for="book in books" :book="book" :key="book.id" />
-      <div v-if="result === 0" :class="$style.notFound">Not found books</div>
+      <Loader v-if="loading" />
+      <Book
+        v-else="loading"
+        v-for="book in books"
+        :book="book"
+        :key="book.id"
+      />
+
+      <div v-if="result === 0 && !loading" :class="$style.notFound">
+        Not found books
+      </div>
     </div>
   </div>
 </template>
@@ -11,10 +20,11 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import axios from "axios";
-import { Navbar, Book } from "../../components";
+import { Navbar, Book, Loader } from "../../components";
 const API_KEY = ref("AIzaSyCK7pxRUj7--NN8XgKdO0vi0B8YZZ1VAEw");
 const books = ref([]);
 const result = ref(0);
+let loading = ref(true);
 const search = ref("programming");
 
 const getBooks = async () => {
@@ -23,6 +33,7 @@ const getBooks = async () => {
       `https://www.googleapis.com/books/v1/volumes?q=${search.value}&maxResults=40&startIndex=1&key=${API_KEY.value}`
     );
     books.value = data.items;
+    loading.value = false;
     result.value = data.items ? data.items.length : 0;
   } catch (error) {
     console.log(error.message);
