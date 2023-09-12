@@ -39,12 +39,18 @@ const router = useRouter();
 
 const props = defineProps({
   book: Object,
+  reload: Boolean,
 });
-
 const handleClick = (id) => {
-  router.push(`/book/detail/${id}`);
-};
+  if (props.reload) {
+    window.location.href.reload();
+    router.push(`/book/detail/${id}`);
 
+    // Book detail page da turib bookni bosganda yana page reload bo'lib ma'lumotlar o'zgarish keregidin pathname o'zgarishga ulgurmayapti ancha harakat qildim
+  } else {
+    router.push(`/book/detail/${id}`);
+  }
+};
 const book = Mappers.Book(props.book);
 </script>
 

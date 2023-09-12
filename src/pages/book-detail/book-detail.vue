@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.bookDetail">
-    <Navbar :handleSearch="handleSearch" :result="result" :isSearch="false" />
-    <div :class="$style.goHome" @click="handleHoHome">Go Home</div>
+    <Navbar :isSearch="false" />
+    <div :class="$style.goHome" @click="handleGoHome">Go Home</div>
     <div :class="$style.wrapper">
       <Loader v-if="loading" />
       <template v-else>
@@ -54,42 +54,67 @@
         </div>
       </template>
     </div>
+    <h3 :class="$style.similar">Similar books</h3>
+    <div :class="$style.books">
+      <Book v-for="book in books" :book="book" :key="book.id" :reload="true" />
+    </div>
   </div>
 </template>
 <script setup>
-import { defineProps, onMounted, ref } from "vue";
+import { defineProps, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
-import { Navbar, Loader } from "../../components";
-import { Mappers } from "../../modules/home";
-const router = useRouter();
+import { Navbar, Loader, Book } from "../../components";
+import { Mappers, HomeService } from "../../modules/home";
 
 const props = defineProps({
   book: Object,
 });
-
 const bookId = useRoute().params.id;
+const router = useRouter();
 
 let book = ref({});
+const books = ref([]);
 let loading = ref(true);
+const search = ref("");
 
 const getBook = async () => {
   try {
-    const { data } = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes/${bookId}`
-    );
+    const { data } = await HomeService.GetBook(bookId);
     loading.value = false;
     book.value = Mappers.Book(data);
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
 };
-const handleHoHome = () => {
+
+const getBooks = async () => {
+  try {
+    search.value = JSON.parse(localStorage.getItem("search")) || "";
+    const { data } = await HomeService.GetBooks(search.value);
+    const shuffledData = shuffleArray(data.items);
+    books.value = shuffledData;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const handleGoHome = () => {
   router.push("/");
 };
+
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 onMounted(() => {
   getBook();
+  getBooks();
+  search.value = JSON.parse(localStorage.getItem("search")) || "";
 });
 </script>
 <style scoped module>

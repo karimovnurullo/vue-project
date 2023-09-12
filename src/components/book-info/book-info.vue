@@ -6,10 +6,7 @@
     </div>
   </div>
 </template>
-<script setup>
-import { defineProps } from "vue";
-console.log(props.data);
-</script>
+<script setup></script>
 <style scoped module>
 @import "./book-info.module.scss";
 </style>

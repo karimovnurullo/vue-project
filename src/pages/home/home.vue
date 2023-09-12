@@ -4,10 +4,11 @@
     <div :class="$style.wrapper">
       <Loader v-if="loading" />
       <Book
-        v-else="loading"
+        v-else
         v-for="book in books"
         :book="book"
         :key="book.id"
+        :reload="false"
       />
 
       <div v-if="result === 0 && !loading" :class="$style.notFound">
@@ -19,19 +20,16 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import axios from "axios";
 import { Navbar, Book, Loader } from "../../components";
-const API_KEY = ref("AIzaSyCK7pxRUj7--NN8XgKdO0vi0B8YZZ1VAEw");
+import { HomeService } from "../../modules/home";
 const books = ref([]);
 const result = ref(0);
-let loading = ref(true);
-const search = ref("programming");
+const loading = ref(true);
+let search = ref("programming");
 
 const getBooks = async () => {
   try {
-    const { data } = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${search.value}&maxResults=40&startIndex=1&key=${API_KEY.value}`
-    );
+    const { data } = await HomeService.GetBooks(search.value);
     books.value = data.items;
     loading.value = false;
     result.value = data.items ? data.items.length : 0;
@@ -47,7 +45,13 @@ const handleSearch = async (value) => {
 onMounted(() => {
   getBooks();
 });
+
 watch(search, () => {
+  if (!search.value) {
+    search.value = "programming";
+    localStorage.setItem("search", JSON.stringify(search.value));
+  }
+
   getBooks();
 });
 </script>
