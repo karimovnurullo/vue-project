@@ -185,6 +185,13 @@
                   margin-top: 0px;
                   margin-left: -0px;
                }
+
+               .authors {
+                  display: flex;
+                  flex-wrap: nowrap;
+                  flex: 1;
+                  margin-right: auto;
+               }
             }
          }
       }

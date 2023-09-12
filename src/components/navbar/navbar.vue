@@ -2,7 +2,7 @@
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
       <div :class="$style.logo">Books <span>beta</span></div>
-      <div :class="$style.center">
+      <div :class="isSearch === true ? $style.center : $style.centerNone">
         <input
           type="search"
           :class="$style.search"
@@ -35,6 +35,7 @@ import { useRouter } from "vue-router";
 const props = defineProps({
   handleSearch: { type: Function },
   result: number,
+  isSearch: Boolean,
 });
 
 import { GetUser, logout } from "../../modules/auth/service";
