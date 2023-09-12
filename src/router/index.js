@@ -1,11 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Home, Login, Register } from "../pages";
+import { BookDetail, Home, Login, Register } from "../pages";
 import { GetUser } from "./../modules/auth/service";
 
 const routes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/book/detail",
+    component: BookDetail,
   },
   {
     path: "/auth/login",

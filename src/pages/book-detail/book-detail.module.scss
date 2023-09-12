@@ -1,0 +1,192 @@
+.bookDetail {
+   position: relative;
+   max-width: 1440px;
+   margin: auto;
+   padding: 50px;
+   top: 80px;
+
+   .wrapper {
+      width: 100%;
+      position: relative;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+
+      .imgBox {
+         width: 35%;
+         height: 350px;
+
+         img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+         }
+      }
+
+      .contentBox {
+         width: 100%;
+
+         .bookInfo,
+         .buttons {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+
+            .name {
+               font-size: 20px;
+               color: rgba(0, 106, 255, 1);
+               margin-right: 30px;
+            }
+
+            .content,
+            .href {
+               font-size: 20px;
+               margin-left: 15px;
+            }
+
+            .authors {
+               display: flex;
+               flex-wrap: wrap;
+               width: fit-content;
+
+               .content {
+                  display: contents;
+               }
+            }
+
+            .href {
+               color: #000;
+            }
+         }
+
+         .buttons {
+            gap: 20px;
+            user-select: none;
+
+            .button,
+            .disable {
+               border: 1px solid hsla(0, 0%, 7%, 0.179);
+               padding: 10px 30px;
+               border-radius: 10px;
+               color: rgba(0, 106, 255, 1);
+               font-size: 20px;
+               cursor: pointer;
+               background-color: #fff;
+               transition: all 0.2s;
+               text-decoration: none;
+
+               &:hover {
+                  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+               }
+
+               &:active {
+                  box-shadow: none;
+               }
+            }
+
+            .disable {
+               cursor: no-drop;
+               color: rgba(0, 106, 255, 0.519);
+
+
+               &:hover {
+                  box-shadow: none;
+               }
+            }
+         }
+
+         .description {
+            margin-top: 30px;
+         }
+      }
+   }
+
+}
+
+@media(max-width: 992px) {
+   .bookDetail {
+      padding: 50px 40px;
+
+      .wrapper {
+         flex-direction: column;
+
+         .imgBox {
+            width: 400px;
+         }
+
+         .contentBox {
+            .title {
+               font-size: 25px;
+            }
+         }
+      }
+   }
+}
+
+@media(max-width: 650px) {
+   .bookDetail {
+      padding: 50px 20px;
+
+      .wrapper {
+         .contentBox {
+            .title {
+               font-size: 22px;
+            }
+
+            .bookInfo,
+            .buttons {
+               .name {
+                  font-size: 16px;
+               }
+
+               .content,
+               .href {
+                  font-size: 20px;
+               }
+            }
+         }
+      }
+   }
+}
+
+@media(max-width: 550px) {
+   .bookDetail {
+      padding: 50px 16px;
+
+      .wrapper {
+
+         .imgBox {
+            width: 100%;
+            height: 300px;
+         }
+
+         .contentBox {
+            .title {
+               font-size: 22px;
+            }
+
+            .bookInfo,
+            .buttons {
+               width: 100%;
+               flex-direction: column;
+               margin-top: 25px;
+
+               .name {
+                  font-size: 16px;
+                  margin-right: auto;
+               }
+
+               .content,
+               .href {
+                  font-size: 20px;
+                  margin-right: auto;
+                  margin-top: 0px;
+                  margin-left: -0px;
+               }
+            }
+         }
+      }
+   }
+}

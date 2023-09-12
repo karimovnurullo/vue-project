@@ -12,16 +12,18 @@
 import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 import { Navbar, Book } from "../../components";
+const API_KEY = ref("AIzaSyCK7pxRUj7--NN8XgKdO0vi0B8YZZ1VAEw");
 const books = ref([]);
 const result = ref(0);
 const search = ref("programming");
 
 const getBooks = async () => {
   try {
-    const { data } = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${search.value}}&maxResults=40&startIndex=1`
-    );
+    // const { data } = await axios.get(
+    //   `https://www.googleapis.com/books/v1/volumes?q=${search.value}&maxResults=40&startIndex=1&key=${API_KEY.value}`
+    // );
     books.value = data.items;
+    // console.log(data.items[0]);
     result.value = data.items ? data.items.length : 0;
   } catch (error) {
     console.log(error.message);

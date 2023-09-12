@@ -23,12 +23,13 @@
         </div>
         <div :class="$style.item">
           <i class="fa-solid fa-calendar"></i>
-          <div>{{ book && book.date.slice(0, 4) }}</div>
+          <div>{{ book && book.publishedDate.slice(0, 4) }}</div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { defineProps } from "vue";
 import { Mappers } from "../../modules/home";
@@ -39,6 +40,7 @@ const props = defineProps({
 
 const book = Mappers.Book(props.book);
 </script>
+
 <style module scoped>
 @import "./book.module.scss";
 </style>
