@@ -42,7 +42,7 @@ const props = defineProps({
     type: Function as PropType<(value: string) => void>,
     required: false,
   },
-  result: { type: number, required: false },
+  result: { type: Number, required: false },
   isSearch: { type: Boolean, required: true },
 });
 

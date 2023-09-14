@@ -3,14 +3,7 @@
     <Navbar :handleSearch="handleSearch" :result="result" :isSearch="true" />
     <div :class="$style.wrapper">
       <Loader v-if="loading" />
-      <Book
-        v-else
-        v-for="book in books"
-        :book="book"
-        :key="book.id"
-        :reload="false"
-      />
-
+      <Book v-else v-for="book in books" :book="book" :key="book.id" />
       <div v-if="result === 0 && !loading" :class="$style.notFound">
         Not found books
       </div>

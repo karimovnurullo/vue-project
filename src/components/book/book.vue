@@ -39,16 +39,9 @@ const router = useRouter();
 
 const props = defineProps({
   book: { type: Object as PropType<Types.IEntity.Book> },
-
-  reload: Boolean,
 });
 const handleClick = (id: string) => {
-  if (props.reload) {
-    window.location.reload();
-    router.push(`/book/detail/${id}`);
-  } else {
-    router.push(`/book/detail/${id}`);
-  }
+  router.push(`/book/detail/${id}`);
 };
 const book = Mappers.Book(props.book);
 </script>

@@ -30,13 +30,6 @@
    }
 }
 
-// @media(max-width: 700px) {
-//    .container {
-//       .wrapper {
-//          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-//       }
-//    }
-// }
 
 @media(max-width: 667px) {
    .container {
@@ -49,7 +42,6 @@
       .wrapper {
          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
          gap: 5px;
-         // grid-template-columns: repeat(2, 1fr);
       }
    }
 }

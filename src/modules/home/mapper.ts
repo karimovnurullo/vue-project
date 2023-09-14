@@ -1,7 +1,7 @@
 import get from "lodash/get";
 import type { Types } from ".";
 
-export const Book = (item: Types.IEntity.Book) => ({
+export const Book = (item: any) => ({
   id: get(item, "id") || "",
   title: get(item, "volumeInfo.title") || "",
   description: get(item, "volumeInfo.description") || "",

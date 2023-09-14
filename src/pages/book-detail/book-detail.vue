@@ -56,12 +56,12 @@
     </div>
     <h3 :class="$style.similar">Similar books</h3>
     <div :class="$style.books">
-      <Book v-for="book in books" :book="book" :key="book.id" :reload="true" />
+      <Book v-for="book in books" :book="book" :key="book.id" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, ref, onMounted, type PropType } from "vue";
+import { defineProps, ref, onMounted, watch, type PropType } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Navbar, Loader, Book } from "@/components";
 import { Mappers, HomeService, Types } from "@/modules/home";
@@ -111,6 +111,13 @@ function shuffleArray(array: any[]) {
   return shuffled;
 }
 
+watch(
+  () => route.params.id,
+  () => {
+    getBook();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+);
 onMounted(() => {
   getBook();
   getBooks();
