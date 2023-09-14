@@ -1,6 +1,7 @@
 import get from "lodash/get";
+import type { Types } from ".";
 
-export const Book = (item) => ({
+export const Book = (item: Types.IEntity.Book) => ({
   id: get(item, "id") || "",
   title: get(item, "volumeInfo.title") || "",
   description: get(item, "volumeInfo.description") || "",
@@ -13,5 +14,5 @@ export const Book = (item) => ({
   authors: get(item, "volumeInfo.authors") || [],
   downloadPdf: get(item, "accessInfo.pdf.acsTokenLink") || "",
   accessDownloadPdf: get(item, "accessInfo.pdf.isAvailable") || Boolean,
-  selfLink: get(item, "selfLink") || boolean,
+  selfLink: get(item, "selfLink") || Boolean,
 });
