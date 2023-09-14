@@ -1,0 +1,26 @@
+.googleButton {
+   display: flex;
+   align-items: center;
+   margin-bottom: 8px;
+   justify-content: center;
+   transition: all 0.2s;
+   padding: 12px 20px;
+   border-radius: 30px;
+   border: 1px solid rgba(17, 17, 17, 0.179);
+   gap: 20px;
+   font-size: 20px;
+   margin-top: 10px;
+   cursor: pointer;
+
+   &:hover {
+      color: rgba(0, 106, 255, 1);
+      border-color: rgba(0, 106, 255, 1);
+   }
+}
+
+@media(max-width: 500px) {
+   .googleButton {
+      font-size: 16px;
+      gap: 10px;
+   }
+}
