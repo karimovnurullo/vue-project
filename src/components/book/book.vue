@@ -30,23 +30,22 @@
   </div>
 </template>
 
-<script setup>
-import { defineProps } from "vue";
+<script setup lang="ts">
+import { defineProps, type PropType } from "vue";
 import { useRouter } from "vue-router";
-import { Mappers } from "../../modules/home";
+import { Mappers, Types } from "@/modules/home";
 
 const router = useRouter();
 
 const props = defineProps({
-  book: Object,
+  book: { type: Object as PropType<Types.IEntity.Book> },
+
   reload: Boolean,
 });
-const handleClick = (id) => {
+const handleClick = (id: string) => {
   if (props.reload) {
-    window.location.href.reload();
+    window.location.reload();
     router.push(`/book/detail/${id}`);
-
-    // Book detail page da turib bookni bosganda yana page reload bo'lib ma'lumotlar o'zgarish keregidin pathname o'zgarishga ulgurmayapti ancha harakat qildim
   } else {
     router.push(`/book/detail/${id}`);
   }

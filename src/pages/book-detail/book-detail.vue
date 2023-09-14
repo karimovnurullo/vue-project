@@ -60,40 +60,40 @@
     </div>
   </div>
 </template>
-<script setup>
-import { defineProps, ref, onMounted } from "vue";
+<script setup lang="ts">
+import { defineProps, ref, onMounted, type PropType } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { Navbar, Loader, Book } from "../../components";
-import { Mappers, HomeService } from "../../modules/home";
+import { Navbar, Loader, Book } from "@/components";
+import { Mappers, HomeService, Types } from "@/modules/home";
 
 const props = defineProps({
-  book: Object,
+  book: { type: Object as PropType<Types.IEntity.Book> },
 });
-const bookId = useRoute().params.id;
+const route = useRoute();
 const router = useRouter();
 
-let book = ref({});
-const books = ref([]);
+let book = ref<Types.IEntity.Book>({} as Types.IEntity.Book);
+const books = ref<Types.IEntity.Book[]>([]);
 let loading = ref(true);
 const search = ref("");
 
 const getBook = async () => {
   try {
-    const { data } = await HomeService.GetBook(bookId);
+    const { data } = await HomeService.GetBook(route.params.id);
     loading.value = false;
     book.value = Mappers.Book(data);
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
   }
 };
 
 const getBooks = async () => {
   try {
-    search.value = JSON.parse(localStorage.getItem("search")) || "";
+    search.value = JSON.parse(localStorage.getItem("search")!) || "";
     const { data } = await HomeService.GetBooks(search.value);
     const shuffledData = shuffleArray(data.items);
-    books.value = shuffledData;
-  } catch (error) {
+    books.value = shuffledData as Types.IEntity.Book[];
+  } catch (error: any) {
     console.log(error.message);
   }
 };
@@ -102,7 +102,7 @@ const handleGoHome = () => {
   router.push("/");
 };
 
-function shuffleArray(array) {
+function shuffleArray(array: any[]) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -114,9 +114,10 @@ function shuffleArray(array) {
 onMounted(() => {
   getBook();
   getBooks();
-  search.value = JSON.parse(localStorage.getItem("search")) || "";
+  search.value = JSON.parse(localStorage.getItem("search")!) || "";
 });
 </script>
+
 <style scoped module>
 @import "./book-detail.module.scss";
 </style>

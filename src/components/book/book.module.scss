@@ -1,5 +1,5 @@
 .book {
-   width: 300px;
+   width: 100%;
    height: fit-content;
    background-color: #fff;
    border-radius: 20px;
@@ -72,7 +72,6 @@
 
 @media(max-width: 700px) {
    .book {
-      width: 220px;
       padding: 5px;
       border-radius: 10px;
 
@@ -113,8 +112,6 @@
 
 @media(max-width: 540px) {
    .book {
-      width: 180px;
-
       .contentBox {
          .info {
             .item {
@@ -130,7 +127,6 @@
 
 @media(max-width: 415px) {
    .book {
-      width: 140px;
       padding: 3px;
 
       .contentBox {

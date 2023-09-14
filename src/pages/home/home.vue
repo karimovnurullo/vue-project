@@ -18,11 +18,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
-import { Navbar, Book, Loader } from "../../components";
-import { HomeService } from "../../modules/home";
-const books = ref([]);
+import { Navbar, Book, Loader } from "@/components";
+import { HomeService, Types } from "@/modules/home";
+
+const books = ref<Types.IEntity.Book[]>([]);
 const result = ref(0);
 const loading = ref(true);
 let search = ref("programming");
@@ -33,12 +34,12 @@ const getBooks = async () => {
     books.value = data.items;
     loading.value = false;
     result.value = data.items ? data.items.length : 0;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
   }
 };
 
-const handleSearch = async (value) => {
+const handleSearch = async (value: string) => {
   search.value = value;
 };
 

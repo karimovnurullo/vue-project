@@ -253,3 +253,28 @@
       }
    }
 }
+
+@media(max-width: 500px) {
+   .navbarWrapper {
+      .navbar {
+         .profile {
+            .dropdown {
+               top: 40px;
+               padding: 0 5px;
+
+               .item {
+                  height: 40px;
+                  font-size: 14px;
+                  padding: 0 16px;
+               }
+
+               .email {
+                  font-size: 12px;
+                  padding: 10px 20px;
+               }
+
+            }
+         }
+      }
+   }
+}

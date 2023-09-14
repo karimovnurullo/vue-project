@@ -9,7 +9,7 @@
           type="search"
           :class="$style.search"
           placeholder="Search book..."
-          @input="(e) => handleSearch(e.target.value)"
+          @input="(e) => handleSearch!((e.target as HTMLInputElement).value)"
         />
         <div :class="$style.result">{{ result }} <span>found</span></div>
       </div>
@@ -30,34 +30,40 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, defineProps } from "vue";
+<script setup lang="ts">
+import { ref, onMounted, type PropType } from "vue";
 import { useRouter } from "vue-router";
+import { number } from "yup";
+import { AuthService } from "@/modules/auth";
+import type { Types } from "@/modules/home";
 
 const props = defineProps({
-  handleSearch: { type: Function },
-  result: number,
-  isSearch: Boolean,
+  handleSearch: {
+    type: Function as PropType<(value: string) => void>,
+    required: false,
+  },
+  result: { type: number, required: false },
+  isSearch: { type: Boolean, required: true },
 });
 
-import { GetUser, logout } from "../../modules/auth/service";
-import { number } from "yup";
 const router = useRouter();
-let user = ref(null);
+let user = ref<Types.IEntity.User>({} as Types.IEntity.User);
 let dropdown = ref(false);
 
 const getUser = async () => {
-  const data = await GetUser();
-  user.value = data;
+  const data = await AuthService.GetUser();
+  user.value = data as Types.IEntity.User;
 };
+
 const handleDropdown = async () => {
   dropdown.value = !dropdown.value;
 };
 
 const handleLogout = () => {
-  logout();
+  AuthService.logout();
   router.push("/auth/login");
 };
+
 const handleLogo = () => {
   router.push("/");
 };

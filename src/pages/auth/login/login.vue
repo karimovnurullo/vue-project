@@ -33,13 +33,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import * as Yup from "yup";
 import { useToast } from "vue-toast-notification";
-import { GoogleButton } from "../../../components";
-import { AuthService } from "../../../modules/auth";
+import { GoogleButton } from "@/components";
+import { AuthService } from "@/modules/auth";
 import "vue-toast-notification/dist/theme-sugar.css";
 const router = useRouter();
 
@@ -65,10 +65,10 @@ const handleLogin = async () => {
       password: password.value,
     });
     router.push("/");
-  } catch (error) {
+  } catch (error: any) {
     if (error.name === "ValidationError") {
-      error.inner.forEach((err) => {
-        $toast.error(err.message, { position: "top-right" });
+      error.inner.forEach((err: any) => {
+        $toast.error(err?.message, { position: "top-right" });
       });
     } else {
       $toast.error(error?.message, { position: "top-right" });

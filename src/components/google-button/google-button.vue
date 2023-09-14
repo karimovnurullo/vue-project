@@ -76,18 +76,18 @@
     <span className="text-gray-700 font-medium">Continue with Google</span>
   </div>
 </template>
-<script setup>
-import { signInWithGoogle } from "../../modules/auth/service";
+<script setup lang="ts">
+import { AuthService } from "@/modules/auth";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const handleSubmit = async () => {
   try {
-    await signInWithGoogle();
+    await AuthService.signInWithGoogle();
     router.push("/");
-  } catch (error) {
-    console.log(error.message);
+  } catch (error: any) {
+    console.log(error?.message);
   }
-  await signInWithGoogle();
+  await AuthService.signInWithGoogle();
   router.push("/");
 };
 </script>
