@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
-      <div :class="$style.logoWrapper">
+      <div :class="$style.left">
         <div :class="$style.back" @click="handleHome">
           <i class="fa-solid fa-angle-left"></i>
         </div>
@@ -18,17 +18,22 @@
         />
         <div :class="$style.result">{{ result }} <span>found</span></div>
       </div>
-      <div :class="$style.profile" @click="handleDropdown">
-        {{ user && user.displayName ? user.displayName.charAt(0) : "" }}
-        <div
-          id="dropdown"
-          :class="[$style.dropdown, { [$style.active]: dropdown }]"
-        >
-          <div :class="$style.email">
-            {{ user && user.email ? user.email : "No email" }}
+      <div :class="$style.right">
+        <div :class="$style.searchIcon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div :class="$style.profile" @click="handleDropdown">
+          {{ user && user.displayName ? user.displayName.charAt(0) : "" }}
+          <div
+            id="dropdown"
+            :class="[$style.dropdown, { [$style.active]: dropdown }]"
+          >
+            <div :class="$style.email">
+              {{ user && user.email ? user.email : "No email" }}
+            </div>
+            <div :class="$style.item && $style.hr"></div>
+            <div :class="$style.item" @click="handleLogout">Log out</div>
           </div>
-          <div :class="$style.item && $style.hr"></div>
-          <div :class="$style.item" @click="handleLogout">Log out</div>
         </div>
       </div>
     </div>
