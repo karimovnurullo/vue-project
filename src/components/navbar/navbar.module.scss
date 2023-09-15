@@ -21,21 +21,52 @@
       max-width: 1440px;
       margin: auto;
 
-      .logo {
-         position: relative;
-         font-size: 32px;
-         font-weight: 600;
-         cursor: pointer;
+      .logoWrapper {
+         display: flex;
+         align-items: center;
+         gap: 20px;
 
-         span {
-            position: absolute;
-            font-size: 12px;
-            padding: 2px 8px;
-            background-color: rgba(0, 106, 255, 1);
-            color: #fff;
-            border-radius: 20px;
+         .logo {
+            position: relative;
+            font-size: 32px;
+            font-weight: 600;
+            cursor: pointer;
+
+            span {
+               position: absolute;
+               font-size: 12px;
+               padding: 2px 8px;
+               background-color: rgba(0, 106, 255, 1);
+               color: #fff;
+               border-radius: 20px;
+            }
          }
+
+         .back {
+            border: 1px solid rgba(17, 17, 17, 0.179);
+            width: 45px;
+            height: 35px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.1s;
+
+            &:hover {
+               border: 1px solid rgba(0, 106, 255, 1);
+
+            }
+
+            &:active {
+               box-shadow: none;
+            }
+         }
+
       }
+
 
       .center {
          display: flex;
@@ -48,7 +79,7 @@
             width: 400px;
             border-radius: 20px;
             border: 1px solid rgba(17, 17, 17, 0.179);
-            padding: 0 10px;
+            padding: 0 15px;
             font-size: 18px;
 
             outline-color: rgba(0, 106, 255, 1);
@@ -187,7 +218,7 @@
    }
 }
 
-@media(max-width: 667px) {
+@media(max-width: 650px) {
    .navbarWrapper {
       height: 50px;
       border-bottom: 0;
@@ -257,6 +288,33 @@
 @media(max-width: 500px) {
    .navbarWrapper {
       .navbar {
+         .logoWrapper {
+            .back {
+               width: 40px;
+               height: 30px;
+               font-size: 20px;
+            }
+
+            .logo {
+               font-size: 28px;
+
+               span {
+                  font-size: 9px;
+                  padding: 1px 6px;
+                  border-radius: 20px;
+                  margin-top: 5px;
+                  margin-left: -2px;
+               }
+            }
+         }
+
+         .center {
+            .search {
+               padding: 0 5px;
+
+            }
+         }
+
          .profile {
             .dropdown {
                top: 40px;

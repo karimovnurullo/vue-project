@@ -1,6 +1,11 @@
 <template name="Home">
   <div :class="$style.container">
-    <Navbar :handleSearch="handleSearch" :result="result" :isSearch="true" />
+    <Navbar
+      :handleSearch="handleSearch"
+      :result="result"
+      :isSearch="true"
+      :isback="false"
+    />
     <div :class="$style.wrapper">
       <Loader v-if="loading" />
       <!-- <div v-if="loading" :class="$style.loader">Loading...</div> -->

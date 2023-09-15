@@ -10,3 +10,7 @@ export const GetBook = (bookId: string | string[]) =>
   axios.get(
     `https://www.googleapis.com/books/v1/volumes?q=${bookId}&key=${API_KEY}`
   );
+export const GetSimilarBooks = (bookTitle: string) =>
+  axios.get(
+    `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&maxResults=40&startIndex=1&key=${API_KEY}`
+  );

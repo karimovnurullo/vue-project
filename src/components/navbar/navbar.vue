@@ -1,8 +1,13 @@
 <template>
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
-      <div :class="$style.logo" @click="handleLogo">
-        Books <span>beta</span>
+      <div :class="$style.logoWrapper">
+        <div :class="$style.back" @click="handleHome">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div :class="$style.logo" @click="handleHome">
+          Books <span>beta</span>
+        </div>
       </div>
       <div :class="isSearch === true ? $style.center : $style.centerNone">
         <input
@@ -44,6 +49,7 @@ const props = defineProps({
   },
   result: { type: Number, required: false },
   isSearch: { type: Boolean, required: true },
+  isback: { type: Boolean, required: true },
 });
 
 const router = useRouter();
@@ -64,7 +70,7 @@ const handleLogout = () => {
   router.push("/auth/login");
 };
 
-const handleLogo = () => {
+const handleHome = () => {
   router.push("/");
 };
 

@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.bookDetail">
-    <Navbar :isSearch="false" />
-    <div :class="$style.goHome" @click="handleGoHome">Go Home</div>
+    <Navbar :isSearch="false" :isback="true" />
+    <!-- <div :class="$style.goHome" @click="handleGoHome">Go Home</div> -->
     <div :class="$style.wrapper">
       <Loader v-if="loading" />
       <template v-else>
@@ -83,17 +83,19 @@ const getBook = async () => {
     const { data } = await HomeService.GetBook(route.params.id);
     loading.value = false;
     book.value = Mappers.Book(data.items[0]);
+    search.value = book.value.title;
+    getSimilarBooks();
   } catch (error: any) {
     console.log(error.message);
   }
 };
 
-const getBooks = async () => {
+const getSimilarBooks = async () => {
   try {
-    search.value = JSON.parse(localStorage.getItem("search")!) || "";
-    const { data } = await HomeService.GetBooks(search.value);
-    const shuffledData = shuffleArray(data.items);
-    books.value = shuffledData as Types.IEntity.Book[];
+    const { data } = await HomeService.GetSimilarBooks(
+      search.value.split(" ")[0]
+    );
+    books.value = data.items as Types.IEntity.Book[];
   } catch (error: any) {
     console.log(error.message);
   }
@@ -103,25 +105,16 @@ const handleGoHome = () => {
   router.push("/");
 };
 
-function shuffleArray(array: any[]) {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
 watch(
   () => route.params.id,
   () => {
     getBook();
+    getSimilarBooks();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 );
 onMounted(() => {
   getBook();
-  getBooks();
   search.value = JSON.parse(localStorage.getItem("search")!) || "";
 });
 </script>

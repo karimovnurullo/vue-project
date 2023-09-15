@@ -27,17 +27,24 @@
 
    }
 
+   .back {
+      display: none;
+   }
+
    .wrapper {
       width: 100%;
       position: relative;
       display: flex;
       gap: 50px;
       justify-content: center;
-      margin-top: 30px;
 
       .imgBox {
          width: 35%;
          height: 350px;
+         border: 1px solid hsla(0, 0%, 7%, 0.179);
+         border-radius: 10px;
+         overflow: hidden;
+
 
          img {
             width: 100%;
@@ -48,6 +55,8 @@
 
       .contentBox {
          width: 100%;
+         border-bottom: 1px solid hsla(0, 0%, 7%, 0.179);
+         padding-bottom: 30px;
 
          .bookInfo,
          .buttons {
@@ -127,7 +136,7 @@
    }
 
    .similar {
-      margin-top: 100px;
+      margin-top: 50px;
       font-size: 25px;
    }
 
@@ -138,6 +147,8 @@
       gap: 10px;
       grid-auto-flow: row;
       justify-content: center;
+      margin-top: 30px;
+
    }
 
 }
@@ -162,11 +173,15 @@
    }
 }
 
+
 @media(max-width: 650px) {
    .bookDetail {
       padding: 50px 20px;
+      top: 50px;
 
       .wrapper {
+         gap: 30px;
+
          .contentBox {
             .title {
                font-size: 22px;
@@ -199,9 +214,25 @@
 
 @media(max-width: 550px) {
    .bookDetail {
-      padding: 50px 16px;
+      padding: 16px 16px;
+
+      .back {
+         position: fixed;
+         top: 50px;
+         left: 0;
+         width: 50px;
+         height: 40px;
+         border-radius: 0 5px 5px 0;
+         background-color: #fff;
+         font-size: 30px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         z-index: 99999;
+      }
 
       .wrapper {
+         gap: 16px;
 
          .imgBox {
             width: 100%;
@@ -210,23 +241,23 @@
 
          .contentBox {
             .title {
-               font-size: 22px;
+               font-size: 20px;
             }
 
             .bookInfo,
             .buttons {
                width: 100%;
                flex-direction: column;
-               margin-top: 25px;
+               margin-top: 10px;
 
                .name {
-                  font-size: 16px;
+                  font-size: 14px;
                   margin-right: auto;
                }
 
                .content,
                .href {
-                  font-size: 20px;
+                  font-size: 18px;
                   margin-right: auto;
                   margin-top: 0px;
                   margin-left: -0px;
@@ -239,13 +270,48 @@
                   margin-right: auto;
                }
             }
+
+            .buttons {
+               gap: 10px;
+
+               .button,
+               .disable {
+                  padding: 8px 26px;
+                  font-size: 18px;
+
+               }
+
+               .disable {
+                  cursor: no-drop;
+                  color: rgba(0, 106, 255, 0.519);
+
+
+                  &:hover {
+                     box-shadow: none;
+                  }
+               }
+            }
          }
+      }
+
+      .similar {
+         margin-top: 25px;
+      }
+
+      .books {
+         margin-top: 15px;
       }
    }
 }
 
 @media(max-width: 440px) {
    .bookDetail {
+      .goHome {
+         padding: 8px 15px;
+         font-size: 18px;
+         border-radius: 10px;
+      }
+
       .books {
          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       }

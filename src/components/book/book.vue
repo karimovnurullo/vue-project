@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.book" @click="handleClick(book.id)">
     <div :class="$style.imgBox">
-      <img :src="book.image" alt="" />
+      <img :src="book.image ? book.image : noImage" alt="" />
     </div>
     <div :class="$style.contentBox">
       <h3 :class="$style.title">{{ book.title }}</h3>
@@ -34,6 +34,7 @@
 import { defineProps, type PropType } from "vue";
 import { useRouter } from "vue-router";
 import { Mappers, Types } from "@/modules/home";
+import noImage from "@/assets/images/no-image.png";
 
 const router = useRouter();
 
