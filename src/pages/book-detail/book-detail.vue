@@ -6,7 +6,7 @@
       <Loader v-if="loading" />
       <template v-else>
         <div :class="$style.imgBox">
-          <img :src="book.image" alt="" />
+          <img :src="book.image ? book.image : noImage" alt="" />
         </div>
         <div :class="$style.contentBox">
           <h2 :class="$style.title">{{ book.title }}</h2>
@@ -50,7 +50,7 @@
               Download PDF
             </div>
           </div>
-          <p :class="$style.description">{{ book.description }}</p>
+          <p v-html="book.description" :class="$style.description"></p>
         </div>
       </template>
     </div>
@@ -65,6 +65,7 @@ import { defineProps, ref, onMounted, watch, type PropType } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Navbar, Loader, Book } from "@/components";
 import { Mappers, HomeService, Types } from "@/modules/home";
+import noImage from "@/assets/images/no-image.png";
 
 const props = defineProps({
   book: { type: Object as PropType<Types.IEntity.Book> },
@@ -81,7 +82,7 @@ const getBook = async () => {
   try {
     const { data } = await HomeService.GetBook(route.params.id);
     loading.value = false;
-    book.value = Mappers.Book(data);
+    book.value = Mappers.Book(data.items[0]);
   } catch (error: any) {
     console.log(error.message);
   }

@@ -1,5 +1,10 @@
 <template>
-  <div :class="$style.loader"></div>
+  <div :class="$style.loaderWrapper">
+    <div :class="$style.loader">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts"></script>
 <style scoped module>
