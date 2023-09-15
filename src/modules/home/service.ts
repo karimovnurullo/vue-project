@@ -1,6 +1,7 @@
 import axios from "axios";
 // const API_KEY = "AIzaSyCK7pxRUj7--NN8XgKdO0vi0B8YZZ1VAEw";
-const API_KEY = "AIzaSyDKgz9YsM5dtASkMHIwSagLJD3ixK7qwuw";
+// const API_KEY = "AIzaSyDKgz9YsM5dtASkMHIwSagLJD3ixK7qwuw";
+const API_KEY = "AIzaSyBoyt1h7Rb0VLFmkFMdIO1EqLnE3OUaTtg";
 
 export const GetBooks = (search: string) =>
   axios.get(

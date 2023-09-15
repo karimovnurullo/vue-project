@@ -108,13 +108,13 @@ const handleGoHome = () => {
 watch(
   () => route.params.id,
   () => {
-    getBook();
-    getSimilarBooks();
+    // getBook();
+    // getSimilarBooks();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 );
 onMounted(() => {
-  getBook();
+  // getBook();
   search.value = JSON.parse(localStorage.getItem("search")!) || "";
 });
 </script>

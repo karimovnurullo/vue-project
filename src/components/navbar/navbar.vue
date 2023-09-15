@@ -2,24 +2,30 @@
   <div :class="$style.navbarWrapper">
     <div :class="$style.navbar">
       <div :class="$style.left">
-        <div :class="$style.back" @click="handleHome">
+        <div v-if="!isSearch" :class="$style.back" @click="handleHome">
           <i class="fa-solid fa-angle-left"></i>
         </div>
         <div :class="$style.logo" @click="handleHome">
           Books <span>beta</span>
         </div>
       </div>
-      <div :class="isSearch === true ? $style.center : $style.centerNone">
+      <div
+        v-if="search"
+        :class="isSearch === true ? $style.center : $style.centerNone"
+      >
         <input
           type="search"
           :class="$style.search"
           placeholder="Search book..."
           @input="(e) => handleSearch!((e.target as HTMLInputElement).value)"
         />
-        <div :class="$style.result">{{ result }} <span>found</span></div>
+        <!-- <div :class="$style.result">{{ result }} <span>found</span></div> -->
+        <div :class="$style.cancel" v-if="search" @click="toggleSearch">
+          cancel
+        </div>
       </div>
       <div :class="$style.right">
-        <div :class="$style.searchIcon">
+        <div v-if="isSearch" :class="$style.searchIcon" @click="toggleSearch">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div :class="$style.profile" @click="handleDropdown">
@@ -41,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, type PropType } from "vue";
+import { ref, onMounted, type PropType, watch } from "vue";
 import { useRouter } from "vue-router";
 import { number } from "yup";
 import { AuthService } from "@/modules/auth";
@@ -60,6 +66,7 @@ const props = defineProps({
 const router = useRouter();
 let user = ref<Types.IEntity.User>({} as Types.IEntity.User);
 let dropdown = ref(false);
+let search = ref(false);
 
 const getUser = async () => {
   const data = await AuthService.GetUser();
@@ -68,6 +75,9 @@ const getUser = async () => {
 
 const handleDropdown = async () => {
   dropdown.value = !dropdown.value;
+};
+const toggleSearch = async () => {
+  search.value = !search.value;
 };
 
 const handleLogout = () => {
@@ -79,6 +89,16 @@ const handleHome = () => {
   router.push("/");
 };
 
+const handleResize = () => {
+  search.value = window.innerWidth <= 650;
+};
+
+watch(
+  () => search.value,
+  () => {
+    window.addEventListener("resize", handleResize);
+  }
+);
 onMounted(() => {
   getUser();
 });

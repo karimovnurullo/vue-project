@@ -43,7 +43,7 @@ const handleSearch = async (value: string) => {
 };
 
 onMounted(() => {
-  getBooks();
+  // getBooks();
 });
 
 watch(search, () => {
@@ -52,7 +52,7 @@ watch(search, () => {
     localStorage.setItem("search", JSON.stringify(search.value));
   }
 
-  getBooks();
+  // getBooks();
 });
 </script>
 
