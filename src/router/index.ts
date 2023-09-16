@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { BookDetail, Home, Login, Register } from "../pages";
-import { GetUser } from "../modules/auth/service";
+import { BookDetail, Home, Login, LoginToken, Register } from "../pages";
+import { getSession } from "@/modules/session";
+// import { GetUser } from "../modules/auth/service";
 
 const routes = [
   {
@@ -15,14 +16,19 @@ const routes = [
   },
   {
     path: "/auth/login",
-    component: Login,
+    component: LoginToken,
     meta: { auth: true },
   },
-  {
-    path: "/auth/register",
-    component: Register,
-    meta: { auth: true },
-  },
+  // {
+  //   path: "/auth/login",
+  //   component: Login,
+  //   meta: { auth: true },
+  // },
+  // {
+  //   path: "/auth/register",
+  //   component: Register,
+  //   meta: { auth: true },
+  // },
   {
     path: "/:catchAll(.*)",
     redirect: "/",
@@ -35,7 +41,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const user = await GetUser();
+  // const user = await GetUser();
+  const user = getSession();
 
   if (to.meta.home) {
     if (user) {

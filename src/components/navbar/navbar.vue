@@ -6,36 +6,41 @@
           <i class="fa-solid fa-angle-left"></i>
         </div>
         <div :class="$style.logo" @click="handleHome">
-          Books <span>beta</span>
+          Books
+          <!-- <span>beta</span> -->
         </div>
       </div>
-      <div
-        v-if="search"
+      <form
+        @submit.prevent="handleSubmit"
+        v-if="isSearch"
         :class="isSearch === true ? $style.center : $style.centerNone"
       >
         <input
           type="search"
           :class="$style.search"
           placeholder="Search book..."
-          @input="(e) => handleSearch!((e.target as HTMLInputElement).value)"
+          @input="(e) => handleInput((e.target as HTMLInputElement).value)"
+          v-model="searchValue"
         />
         <!-- <div :class="$style.result">{{ result }} <span>found</span></div> -->
-        <div :class="$style.cancel" v-if="search" @click="toggleSearch">
+        <div :class="$style.cancel" v-if="isSearch" @click="toggleSearch">
           cancel
         </div>
-      </div>
+      </form>
       <div :class="$style.right">
         <div v-if="isSearch" :class="$style.searchIcon" @click="toggleSearch">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <div :class="$style.profile" @click="handleDropdown">
-          {{ user && user.displayName ? user.displayName.charAt(0) : "" }}
+        <div :class="$style.profile" id="avatar" @click="handleDropdown">
+          <!-- {{ user && user.displayName ? user.displayName.charAt(0) : "" }} -->
+          {{ user ? user.charAt(0) : "" }}
           <div
             id="dropdown"
             :class="[$style.dropdown, { [$style.active]: dropdown }]"
           >
             <div :class="$style.email">
-              {{ user && user.email ? user.email : "No email" }}
+              <!-- {{ user && user.email ? user.email : "No email" }} -->
+              {{ user }}
             </div>
             <div :class="$style.item && $style.hr"></div>
             <div :class="$style.item" @click="handleLogout">Log out</div>
@@ -47,41 +52,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, type PropType, watch } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
-import { number } from "yup";
-import { AuthService } from "@/modules/auth";
-import type { Types } from "@/modules/home";
+import { getSession, clearSession } from "@/modules/session";
+import { useStore } from "@/store";
 
 const props = defineProps({
-  handleSearch: {
-    type: Function as PropType<(value: string) => void>,
-    required: false,
-  },
-  result: { type: Number, required: false },
   isSearch: { type: Boolean, required: true },
   isback: { type: Boolean, required: true },
 });
 
+const store = useStore();
 const router = useRouter();
-let user = ref<Types.IEntity.User>({} as Types.IEntity.User);
+let user = ref<string | null>("");
 let dropdown = ref(false);
 let search = ref(false);
+let searchValue = ref(localStorage.getItem("search") || "");
 
 const getUser = async () => {
-  const data = await AuthService.GetUser();
-  user.value = data as Types.IEntity.User;
+  // const data = await AuthService.GetUser();
+  // user.value = data as Types.IEntity.User;
+  user.value = getSession();
 };
 
+const handleInput = async (value: string) => {
+  localStorage.setItem("search", value);
+};
+const handleSubmit = async () => {
+  store.getBooks(searchValue.value);
+  localStorage.setItem(
+    "search",
+    searchValue.value ? searchValue.value : "programming"
+  );
+};
 const handleDropdown = async () => {
   dropdown.value = !dropdown.value;
 };
 const toggleSearch = async () => {
   search.value = !search.value;
+  dropdown.value = false;
+  localStorage.removeItem("search");
+  searchValue.value = "";
 };
 
 const handleLogout = () => {
-  AuthService.logout();
+  // AuthService.logout();
+  clearSession();
   router.push("/auth/login");
 };
 
@@ -93,6 +109,13 @@ const handleResize = () => {
   search.value = window.innerWidth <= 650;
 };
 
+const handleClickOutside = (event: MouseEvent) => {
+  const dropdownElement = document.getElementById("avatar");
+  if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+    dropdown.value = false;
+  }
+};
+
 watch(
   () => search.value,
   () => {
@@ -101,6 +124,11 @@ watch(
 );
 onMounted(() => {
   getUser();
+  window.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("click", handleClickOutside);
 });
 </script>
 
