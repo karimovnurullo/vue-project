@@ -25,6 +25,7 @@ const useStore = defineStore("storeId", {
   }),
   actions: {
     async getBooks(search = "programming") {
+      this.loading = true;
       try {
         const { data } = await HomeService.GetBooks(search || "");
         this.books = data.items.map((book: Types.IEntity.Book) =>
@@ -36,8 +37,8 @@ const useStore = defineStore("storeId", {
       }
     },
     async getBook(bookId: string | string[]) {
+      this.loading = true;
       try {
-        this.loading = true;
         const { data } = await HomeService.GetBook(bookId);
         this.book = Mappers.Book(data);
         this.loading = false;

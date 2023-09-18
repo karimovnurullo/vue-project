@@ -4,12 +4,12 @@
     <div :class="$style.wrapper">
       <Loader v-if="store.loading" />
       <Book v-else v-for="book in store.books" :book="book" :key="book.id" />
-      <div
+      <!-- <div
         v-if="!store.loading && store.books.length === 0"
         :class="$style.notFound"
       >
         Not found books
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

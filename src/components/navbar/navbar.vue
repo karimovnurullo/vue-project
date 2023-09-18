@@ -102,6 +102,7 @@ const handleLogout = () => {
   // AuthService.logout();
   clearSession();
   router.push("/auth/login");
+  localStorage.removeItem("expired");
 };
 
 const handleClickOutside = (event: MouseEvent) => {

@@ -60,7 +60,7 @@
       </template>
     </div>
     <h3 :class="$style.similar">Similar books</h3>
-    <div :class="$style.books">
+    <div :class="$style.books" v-if="!store.loading">
       <Book v-for="book in store.similarBooks" :book="book" :key="book.id" />
     </div>
   </div>
