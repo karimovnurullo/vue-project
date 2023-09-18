@@ -6,9 +6,10 @@
       <Loader v-if="store.loading" />
       <Book v-else v-for="(book, idx) in store.books" :book="book" :key="idx" />
       <div
-        v-if="!store.loading && store.books.length === 0"
+        v-if="!store.loading && store.books.length < 1"
         :class="$style.notFound"
       >
+        <!-- v-if="!store.loading && store.books.length === 0" -->
         Not found books
       </div>
     </div>

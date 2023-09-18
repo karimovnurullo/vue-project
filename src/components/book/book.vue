@@ -2,16 +2,11 @@
   <div :class="$style.book">
     <div :class="$style.icon" @click="handleLike">
       <i
-        v-if="isBookInFavorites()"
+        v-if="store.findFavorite(book?.id!)"
         :class="$style.liked"
         class="fa-solid fa-heart"
       ></i>
       <i v-else :class="$style.niLiked" class="fa-regular fa-heart"></i>
-      <!-- <i
-        :class="[
-          isBookInFavorites() ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
-        ]"
-      ></i> -->
     </div>
     <div @click="handleClick">
       <div :class="$style.imgBox">

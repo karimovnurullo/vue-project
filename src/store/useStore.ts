@@ -3,6 +3,8 @@ import type { State } from "./store";
 import { HomeService, Mappers, Types } from "@/modules/home";
 import axios from "axios";
 
+const FAVORITES_KEY = "favorites";
+
 const useStore = defineStore("storeId", {
   state: (): State => ({
     book: {
@@ -22,7 +24,7 @@ const useStore = defineStore("storeId", {
     },
     books: [],
     similarBooks: [],
-    favorites: [],
+    favorites: JSON.parse(localStorage.getItem(FAVORITES_KEY)!) || [],
     loading: true,
     pageCount: 1,
     error: "",
@@ -85,14 +87,27 @@ const useStore = defineStore("storeId", {
     },
     addFavorite(bookId: string) {
       const oldBooks = [...this.books];
-      const bookIdx = oldBooks.findIndex((book) => book.id === bookId);
-      this.favorites.push(oldBooks[bookIdx]);
+      const bookToAdd = oldBooks.find((book) => book.id === bookId);
+
+      if (bookToAdd) {
+        this.favorites.push(bookToAdd);
+        this.updateLocalStorage();
+      }
     },
+
     removeFavorite(bookId: string) {
-      const oldFavorites = [...this.favorites];
-      const bookIdx = oldFavorites.findIndex((book) => book.id === bookId);
-      this.favorites = oldFavorites.splice(bookIdx, 1);
+      const bookIdx = this.favorites.findIndex((book) => book.id === bookId);
+
+      if (bookIdx !== -1) {
+        this.favorites.splice(bookIdx, 1);
+        this.updateLocalStorage();
+      }
     },
+
+    updateLocalStorage() {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(this.favorites));
+    },
+
     findFavorite(bookId: string) {
       const oldFavorites = [...this.favorites];
       const bookIdx = oldFavorites.findIndex((book) => book.id === bookId);

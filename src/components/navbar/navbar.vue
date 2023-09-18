@@ -33,10 +33,9 @@
         </div>
         <router-link to="/favorites" :class="$style.favorite">
           <!-- <i class="fa-solid fa-heart"></i> -->
-          <!-- <span>
+          <span v-if="store.favorites.length > 0">
             {{ store.favorites.length }}
-            30
-          </span> -->
+          </span>
           <i class="fa-regular fa-heart"></i>
         </router-link>
         <div :class="$style.profile" id="avatar" @click="handleDropdown">

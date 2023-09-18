@@ -3,9 +3,10 @@
     <Navbar :isSearch="false" :isback="true" />
     <div v-if="store.error">{{ store.error }}</div>
     <div v-else :class="$style.wrapper">
-      <!-- <Loader v-if="store.loading" /> -->
-      <!-- <Book v-else v-for="(book, idx) in store.books" :book="book" :key="idx" /> -->
-      <div :class="$style.notFound">Not found favorite books</div>
+      <Book v-for="(book, idx) in store.favorites" :book="book" :key="idx" />
+      <div v-if="store.favorites.length < 1" :class="$style.notFound">
+        Not found favorite books
+      </div>
     </div>
   </div>
 </template>
