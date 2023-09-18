@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { BookDetail, Home, Login, LoginToken, Register } from "../pages";
+import { BookDetail, Favorites, Home, LoginToken } from "../pages";
 import { getSession } from "@/modules/session";
-// import { GetUser } from "../modules/auth/service";
 
 const routes = [
   {
@@ -11,7 +10,7 @@ const routes = [
   },
   {
     path: "/favorites",
-    component: Home,
+    component: Favorites,
     meta: { home: true },
   },
   {
@@ -24,16 +23,6 @@ const routes = [
     component: LoginToken,
     meta: { auth: true },
   },
-  // {
-  //   path: "/auth/login",
-  //   component: Login,
-  //   meta: { auth: true },
-  // },
-  // {
-  //   path: "/auth/register",
-  //   component: Register,
-  //   meta: { auth: true },
-  // },
   {
     path: "/:catchAll(.*)",
     redirect: "/",

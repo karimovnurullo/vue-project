@@ -113,8 +113,27 @@
          }
 
          .favorite {
+            position: relative;
             font-size: 28px;
             cursor: pointer;
+            color: #000;
+
+            span {
+               position: absolute;
+               top: -3px;
+               right: -8px;
+               font-size: 12px;
+               font-weight: bold;
+               width: fit-content;
+               padding: 0 5px;
+               height: 18px;
+               border-radius: 20px;
+               background-color: rgba(0, 106, 255, 1);
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               color: #fff;
+            }
          }
 
          .profile {
@@ -290,13 +309,17 @@
          }
 
          .right {
+            .favorite {
+               font-size: 24px;
+            }
+
             .searchIcon {
                position: relative;
                display: grid;
                place-items: center;
                text-transform: uppercase;
                font-weight: 600;
-               font-size: 15px;
+               font-size: 18px;
                width: 35px;
                height: 35px;
                border-radius: 50%;
@@ -343,6 +366,12 @@
          }
 
          .right {
+            gap: 12px;
+
+            .favorite {
+               font-size: 20px;
+            }
+
             .profile {
                .dropdown {
                   top: 40px;

@@ -1,4 +1,5 @@
 .book {
+   position: relative;
    width: 100%;
    height: fit-content;
    background-color: #fff;
@@ -13,6 +14,33 @@
 
    &:hover {
       transform: scale(1.03);
+   }
+
+   .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #fff;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      border: 1px solid hsla(0, 0%, 7%, 0.179);
+      z-index: 999;
+
+      i {
+         margin-top: 2px;
+         color: #000;
+
+      }
+
+      .liked {
+         color: red;
+      }
+
    }
 
    .imgBox {
@@ -62,7 +90,7 @@
                white-space: nowrap;
                overflow: hidden;
                font-size: 14px;
-               max-width: 170px;
+               max-width: 130px;
             }
          }
       }

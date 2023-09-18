@@ -22,6 +22,7 @@ const useStore = defineStore("storeId", {
     },
     books: [],
     similarBooks: [],
+    favorites: [],
     loading: true,
     pageCount: 1,
     error: "",
@@ -81,6 +82,21 @@ const useStore = defineStore("storeId", {
         console.log(error?.message);
         this.error = "Books fetching error";
       }
+    },
+    addFavorite(bookId: string) {
+      const oldBooks = [...this.books];
+      const bookIdx = oldBooks.findIndex((book) => book.id === bookId);
+      this.favorites.push(oldBooks[bookIdx]);
+    },
+    removeFavorite(bookId: string) {
+      const oldFavorites = [...this.favorites];
+      const bookIdx = oldFavorites.findIndex((book) => book.id === bookId);
+      this.favorites = oldFavorites.splice(bookIdx, 1);
+    },
+    findFavorite(bookId: string) {
+      const oldFavorites = [...this.favorites];
+      const bookIdx = oldFavorites.findIndex((book) => book.id === bookId);
+      return oldFavorites[bookIdx];
     },
   },
 });
