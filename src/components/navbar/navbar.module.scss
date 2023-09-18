@@ -69,7 +69,8 @@
       }
 
 
-      .center {
+      .center,
+      .centerShow {
          position: relative;
          display: flex;
          gap: 40px;
@@ -94,11 +95,12 @@
             font-weight: 500;
             color: #000;
             cursor: pointer;
+            display: none;
          }
       }
 
       .centerNone {
-         display: none;
+         display: flex;
       }
 
       .right {
@@ -248,7 +250,8 @@
             }
          }
 
-         .center {
+         .center,
+         .centerShow {
             z-index: 1;
             gap: 15px;
             position: absolute;
@@ -261,6 +264,7 @@
             justify-content: center;
             border-bottom: 1px solid rgba(17, 17, 17, 0.179);
             box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+            display: flex;
 
             .search {
                width: 100%;
@@ -270,7 +274,14 @@
 
             .cancel {
                font-size: 16px;
+               display: flex;
             }
+         }
+
+         .centerShow {
+            background-color: red;
+            display: flex;
+            display: none;
          }
 
          .right {

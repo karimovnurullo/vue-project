@@ -12,8 +12,8 @@
       </div>
       <form
         @submit.prevent="handleSubmit"
-        v-if="isSearch && search"
-        :class="isSearch === true ? $style.center : $style.centerNone"
+        v-if="isSearch"
+        :class="search ? $style.centerShow : $style.center"
       >
         <input
           type="search"
@@ -67,6 +67,8 @@ const router = useRouter();
 let user = ref<string | null>("");
 let dropdown = ref(false);
 let search = ref(false);
+const windowSize = ref(window.innerWidth);
+
 let searchValue = ref(localStorage.getItem("search") || "");
 
 const getUser = async () => {
@@ -102,10 +104,6 @@ const handleLogout = () => {
   router.push("/auth/login");
 };
 
-const handleResize = () => {
-  search.value = window.innerWidth <= 650;
-};
-
 const handleClickOutside = (event: MouseEvent) => {
   const dropdownElement = document.getElementById("avatar");
   if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
@@ -113,14 +111,14 @@ const handleClickOutside = (event: MouseEvent) => {
   }
 };
 
-watch(
-  () => search.value,
-  () => {
-    window.addEventListener("resize", handleResize);
-  }
-);
+window.addEventListener("resize", () => {
+  windowSize.value = window.innerWidth;
+  search.value = windowSize.value < 650;
+});
+
 onMounted(() => {
   getUser();
+  search.value = true;
   window.addEventListener("click", handleClickOutside);
 });
 
