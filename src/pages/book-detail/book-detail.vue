@@ -87,7 +87,7 @@ watch(
 onMounted(() => {
   window.scrollTo({ top: 0 });
   store.getBook(route.params.id);
-  store.getSimilarBook(store.book.title?.split(" ")[0]);
+  store.getSimilarBook(store.book?.title?.split(" ")[0]);
 });
 </script>
 

@@ -12,7 +12,7 @@
       </div>
       <form
         @submit.prevent="handleSubmit"
-        v-if="isSearch"
+        v-if="isSearch && search"
         :class="isSearch === true ? $style.center : $style.centerNone"
       >
         <input
@@ -85,9 +85,10 @@ const handleSubmit = async () => {
     searchValue.value ? searchValue.value : "programming"
   );
 };
-const handleDropdown = async () => {
-  dropdown.value = !dropdown.value;
-};
+const handleDropdown = async () => (dropdown.value = !dropdown.value);
+
+const handleHome = () => router.push("/");
+
 const toggleSearch = async () => {
   search.value = !search.value;
   dropdown.value = false;
@@ -99,10 +100,6 @@ const handleLogout = () => {
   // AuthService.logout();
   clearSession();
   router.push("/auth/login");
-};
-
-const handleHome = () => {
-  router.push("/");
 };
 
 const handleResize = () => {

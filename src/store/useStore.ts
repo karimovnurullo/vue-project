@@ -36,18 +36,13 @@ const useStore = defineStore("storeId", {
       }
     },
     async getBook(bookId: string | string[]) {
-      if (this.books.length > 0) {
-        const [filteredBook] = this.books.filter((book) => book.id === bookId);
-        this.book = filteredBook;
-      } else {
-        try {
-          const { data } = await HomeService.GetBook(bookId);
-          this.book = Mappers.Book(data);
-          this.loading = false;
-          // this.getBooks(localStorage.getItem("search") || "programming");
-        } catch (error: any) {
-          console.log(error?.message);
-        }
+      try {
+        this.loading = true;
+        const { data } = await HomeService.GetBook(bookId);
+        this.book = Mappers.Book(data);
+        this.loading = false;
+      } catch (error: any) {
+        console.log(error?.message);
       }
     },
     async getSimilarBook(search: string) {

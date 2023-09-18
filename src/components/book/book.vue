@@ -41,9 +41,7 @@ const router = useRouter();
 const props = defineProps({
   book: { type: Object as PropType<Types.IEntity.Book> },
 });
-const handleClick = (id: string) => {
-  router.push(`/book/detail/${id}`);
-};
+const handleClick = (id: string) => router.push(`/book/detail/${id}`);
 const book = props.book;
 </script>
 
