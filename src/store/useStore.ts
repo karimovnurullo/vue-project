@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { State } from "./store";
 import { HomeService, Mappers, Types } from "@/modules/home";
+import axios from "axios";
 
 const useStore = defineStore("storeId", {
   state: (): State => ({
@@ -22,6 +23,8 @@ const useStore = defineStore("storeId", {
     books: [],
     similarBooks: [],
     loading: true,
+    pageCount: 1,
+    error: "",
   }),
   actions: {
     async getBooks(search = "programming") {
@@ -34,6 +37,7 @@ const useStore = defineStore("storeId", {
         this.loading = false;
       } catch (error: any) {
         console.log(error?.message);
+        this.error = "Books fetching error";
       }
     },
     async getBook(bookId: string | string[]) {
@@ -44,6 +48,7 @@ const useStore = defineStore("storeId", {
         this.loading = false;
       } catch (error: any) {
         console.log(error?.message);
+        this.error = "Book fetching error";
       }
     },
     async getSimilarBook(search: string) {
@@ -54,6 +59,27 @@ const useStore = defineStore("storeId", {
         );
       } catch (error: any) {
         console.log(error?.message);
+        this.error = error?.message;
+        this.error = "Similar books fetching error";
+      }
+    },
+
+    async getPagination(search = "programming") {
+      this.loading = true;
+      try {
+        const { data } = await HomeService.GetPagination(
+          search,
+          this.pageCount
+        );
+
+        this.books = data.items.map((book: Types.IEntity.Book) =>
+          Mappers.Book(book)
+        );
+
+        this.loading = false;
+      } catch (error: any) {
+        console.log(error?.message);
+        this.error = "Books fetching error";
       }
     },
   },

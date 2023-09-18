@@ -10,6 +10,11 @@ const routes = [
     meta: { home: true },
   },
   {
+    path: "/favorites",
+    component: Home,
+    meta: { home: true },
+  },
+  {
     path: "/book/detail/:id",
     component: BookDetail,
     meta: { home: true },

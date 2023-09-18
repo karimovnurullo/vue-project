@@ -106,10 +106,15 @@
       .right {
          display: flex;
          align-items: center;
-         gap: 10px;
+         gap: 20px;
 
          .searchIcon {
             display: none;
+         }
+
+         .favorite {
+            font-size: 28px;
+            cursor: pointer;
          }
 
          .profile {

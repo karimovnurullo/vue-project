@@ -22,6 +22,35 @@
 
    }
 
+   .pagination {
+      position: relative;
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+      margin-top: 20px;
+
+      button {
+         padding: 8px 24px;
+         font-size: 20px;
+         border: 0;
+         border-radius: 10px;
+         cursor: pointer;
+         box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+            rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+         border: 1px solid hsla(0, 0%, 7%, 0.179);
+         background-color: #fff;
+         font-weight: 600;
+
+         &:nth-child(1) {
+            cursor: no-drop;
+         }
+
+         &:nth-child(2) {
+            padding: 8px 15px;
+         }
+      }
+   }
+
 }
 
 

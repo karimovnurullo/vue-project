@@ -10,6 +10,7 @@ export const GetBooks = (search: string) =>
   axios.get(
     `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=40&startIndex=1&key=${API_KEY}`
   );
+
 export const GetBook = (bookId: string | string[]) =>
   axios.get(
     `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${API_KEY}`
@@ -17,4 +18,9 @@ export const GetBook = (bookId: string | string[]) =>
 export const GetSimilarBooks = (bookTitle: string) =>
   axios.get(
     `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&maxResults=40&startIndex=1&key=${API_KEY}`
+  );
+
+export const GetPagination = (search: string, startIdx: number) =>
+  axios.get(
+    `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=20&startIndex=${startIdx}&key=${API_KEY}`
   );

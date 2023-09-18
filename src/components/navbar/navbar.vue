@@ -31,6 +31,10 @@
         <div v-if="isSearch" :class="$style.searchIcon" @click="toggleSearch">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
+        <div :class="$style.favorite">
+          <i class="fa-solid fa-heart"></i>
+          <!-- <i class="fa-regular fa-heart"></i> -->
+        </div>
         <div :class="$style.profile" id="avatar" @click="handleDropdown">
           <!-- {{ user && user.displayName ? user.displayName.charAt(0) : "" }} -->
           {{ user ? user.charAt(0) : "" }}

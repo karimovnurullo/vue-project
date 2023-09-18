@@ -5,4 +5,6 @@ export interface State {
   books: Types.IEntity.Book[];
   similarBooks: Types.IEntity.Book[];
   loading: boolean;
+  pageCount: number;
+  error: string;
 }

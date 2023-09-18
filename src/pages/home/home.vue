@@ -1,15 +1,21 @@
 <template name="Home">
   <div :class="$style.container">
     <Navbar :isSearch="true" :isback="false" />
-    <div :class="$style.wrapper">
+    <div v-if="store.error">{{ store.error }}</div>
+    <div v-else :class="$style.wrapper">
       <Loader v-if="store.loading" />
-      <Book v-else v-for="book in store.books" :book="book" :key="book.id" />
-      <!-- <div
+      <Book v-else v-for="(book, idx) in store.books" :book="book" :key="idx" />
+      <div
         v-if="!store.loading && store.books.length === 0"
         :class="$style.notFound"
       >
         Not found books
-      </div> -->
+      </div>
+    </div>
+    <div :class="$style.pagination" v-if="!store.error && !store.loading">
+      <button :disabled="store.pageCount === 1" @click="prevPage">Prev</button>
+      <button>{{ store.pageCount }}</button>
+      <button @click="nextPage">Next</button>
     </div>
   </div>
 </template>
@@ -21,8 +27,18 @@ import { useStore } from "@/store";
 
 const store = useStore();
 
+const prevPage = () => {
+  store.pageCount--;
+  store.getPagination("progamming");
+};
+const nextPage = () => {
+  store.pageCount++;
+  store.getPagination("progamming");
+};
+
 onMounted(() => {
-  store.getBooks(localStorage.getItem("search") || "progamming");
+  store.getPagination("progamming");
+  // store.getBooks(localStorage.getItem("search") || "progamming");
 });
 </script>
 

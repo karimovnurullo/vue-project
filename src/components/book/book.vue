@@ -12,13 +12,14 @@
           <div>{{ book?.language }}</div>
         </div>
         <div :class="$style.item">
-          <i class="fa-solid fa-book?-open"></i>
+          <i class="fa-solid fa-book-open"></i>
           <div>{{ book?.pageCount }}</div>
         </div>
       </div>
       <div :class="$style.info">
         <div :class="$style.item">
           <i class="fa-solid fa-user"></i>
+
           <div :class="$style.author">{{ book?.authors[0] }}</div>
         </div>
         <div :class="$style.item">
