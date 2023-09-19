@@ -32,9 +32,7 @@
         </div>
         <router-link to="/favorites" :class="$style.favorite">
           <!-- <i class="fa-solid fa-heart"></i> -->
-          <span v-if="store.favorites.length > 0">
-            {{ store.favorites.length }}
-          </span>
+          <span v-if="store.favorites.length > 0"></span>
           <i class="fa-regular fa-heart"></i>
         </router-link>
         <div :class="$style.profile" id="avatar" @click="handleDropdown">
@@ -83,14 +81,6 @@ const getUser = async () => {
   user.value = getSession();
 };
 
-// const handleSubmit = async () => {
-//   store.getPagination(searchValue.value ? searchValue.value : "programming");
-//   store.pageCount = 1;
-//   localStorage.setItem(
-//     "search",
-//     searchValue.value ? searchValue.value : "programming"
-//   );
-// };
 const handleSubmit = async () => {
   store.getPagination(searchValue.value);
   store.pageCount = 1;

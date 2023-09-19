@@ -39,8 +39,6 @@ const nextPage = () => {
 
 onMounted(() => {
   store.getPagination(localStorage.getItem("search")!);
-
-  // store.getBooks(localStorage.getItem("search") || "progamming");
 });
 </script>
 
