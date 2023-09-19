@@ -67,11 +67,11 @@ const useStore = defineStore("storeId", {
       }
     },
 
-    async getPagination(search = "programming") {
+    async getPagination(search = "") {
       this.loading = true;
       try {
         const { data } = await HomeService.GetPagination(
-          search,
+          search !== "" ? search : "programming",
           this.pageCount
         );
 

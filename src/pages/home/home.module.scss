@@ -41,12 +41,13 @@
          background-color: #fff;
          font-weight: 600;
 
-         &:nth-child(1) {
+         &:nth-child(1):disabled {
             cursor: no-drop;
          }
 
          &:nth-child(2) {
             padding: 8px 15px;
+            cursor: auto;
          }
       }
    }

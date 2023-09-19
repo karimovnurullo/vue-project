@@ -30,15 +30,16 @@ const store = useStore();
 
 const prevPage = () => {
   store.pageCount--;
-  store.getPagination("progamming");
+  store.getPagination(localStorage.getItem("search")!);
 };
 const nextPage = () => {
   store.pageCount++;
-  store.getPagination("progamming");
+  store.getPagination(localStorage.getItem("search")!);
 };
 
 onMounted(() => {
-  store.getPagination("progamming");
+  store.getPagination(localStorage.getItem("search")!);
+
   // store.getBooks(localStorage.getItem("search") || "progamming");
 });
 </script>

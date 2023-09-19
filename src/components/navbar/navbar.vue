@@ -19,7 +19,6 @@
           type="search"
           :class="$style.search"
           placeholder="Search book..."
-          @input="(e) => handleInput((e.target as HTMLInputElement).value)"
           v-model="searchValue"
         />
         <!-- <div :class="$style.result">{{ result }} <span>found</span></div> -->
@@ -84,15 +83,18 @@ const getUser = async () => {
   user.value = getSession();
 };
 
-const handleInput = async (value: string) => {
-  localStorage.setItem("search", value);
-};
+// const handleSubmit = async () => {
+//   store.getPagination(searchValue.value ? searchValue.value : "programming");
+//   store.pageCount = 1;
+//   localStorage.setItem(
+//     "search",
+//     searchValue.value ? searchValue.value : "programming"
+//   );
+// };
 const handleSubmit = async () => {
-  store.getBooks(searchValue.value);
-  localStorage.setItem(
-    "search",
-    searchValue.value ? searchValue.value : "programming"
-  );
+  store.getPagination(searchValue.value);
+  store.pageCount = 1;
+  localStorage.setItem("search", searchValue.value);
 };
 const handleDropdown = async () => (dropdown.value = !dropdown.value);
 
