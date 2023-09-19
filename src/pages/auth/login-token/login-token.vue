@@ -10,6 +10,7 @@
         :class="$style.input"
         v-model="name"
       />
+      <div :class="$style.error">{{ errors.name }}</div>
       <label for="token" :class="$style.label">Token</label>
       <input
         type="text"
@@ -18,8 +19,9 @@
         :class="$style.input"
         v-model="token"
       />
+      <div :class="$style.error">{{ errors.token }}</div>
       <button type="submit" :class="$style.button" :disabled="isLoading">
-        {{ isLoading ? "Logging in..." : "Login" }}
+        {{ isLoading ? "Login in..." : "Login" }}
       </button>
     </form>
   </div>
@@ -46,10 +48,20 @@ const $toast = useToast();
 
 const name = ref("");
 const token = ref("");
+interface FormErrors {
+  name: string;
+  token: string;
+}
+
+const errors = ref<FormErrors>({ name: "", token: "" });
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
-  token: Yup.string().test("validToken", "Invalid token format", isValidToken),
+  token: Yup.string().test(
+    "validToken",
+    "Invalid token format 16 letter and only letters",
+    isValidToken
+  ),
 });
 
 const isLoading = ref(false);
@@ -66,11 +78,16 @@ const handleLogin = async () => {
     router.push("/");
   } catch (error: any) {
     if (error.name === "ValidationError") {
+      errors.value.name = "";
+      errors.value.token = "";
       error.inner.forEach((err: any) => {
-        $toast.error(err?.message, { position: "top-right" });
+        if (err.path) {
+          const key = err.path as keyof FormErrors;
+          errors.value[key] = err.message;
+        }
       });
     } else {
-      $toast.error(error?.message, { position: "top-right" });
+      console.log(error?.message);
     }
   } finally {
     isLoading.value = false;

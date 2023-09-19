@@ -11,11 +11,13 @@
     "host": "vite --host"
   },
   "dependencies": {
+    "@types/debounce": "^1.2.1",
     "@types/lodash": "^4.14.198",
     "axios": "^1.5.0",
     "firebase": "^10.3.1",
     "lodash": "^4.17.21",
     "pinia": "^2.1.6",
+    "use-debounce": "^9.0.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
     "vue-toast-notification": "^3.1.1",
