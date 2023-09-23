@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, type PropType } from "vue";
+import { defineProps, type PropType } from "vue";
 import { useRouter } from "vue-router";
 import { Types } from "@/modules/home";
 import noImage from "@/assets/images/no-image.png";
@@ -58,17 +58,11 @@ const props = defineProps({
 });
 const handleClick = () => router.push(`/book/detail/${props.book?.id!}`);
 
-const isBookInFavorites = () => {
-  return store.findFavorite(props.book?.id!);
-};
 const handleLike = () => {
   const isFavorite = store.findFavorite(props.book?.id!);
-  console.log("Clicked");
   if (isFavorite) {
     store.removeFavorite(props.book?.id!);
-    console.log(store.favorites);
   } else {
-    console.log(store.favorites);
     store.addFavorite(props.book?.id!);
   }
 };

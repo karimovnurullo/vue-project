@@ -31,3 +31,29 @@ export namespace Ifunction {
   export interface Register extends Auth {}
   export interface Login extends Auth {}
 }
+
+export namespace Api {
+  export namespace Book {
+    export namespace List {
+      export interface Request {
+        search: string;
+        startIdx: number;
+      }
+      export interface Respons {
+        items: IEntity.Book[];
+      }
+    }
+    export namespace Single {
+      export type Request = string;
+      export interface Respons {
+        data: IEntity.Book;
+      }
+    }
+    export namespace Similar {
+      export type Request = string;
+      export interface Respons {
+        items: IEntity.Book[];
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@
       <div v-if="store.favorites.length < 1" :class="$style.notFound">
         Not found favorite books
       </div>
-    </div>
+    </div>  
   </div>
 </template>
 

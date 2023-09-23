@@ -9,10 +9,12 @@
         placeholder="Name"
         :class="$style.input"
         v-model="name"
+        data-test-name-input
       />
       <div :class="$style.error">{{ errors.name }}</div>
       <label for="token" :class="$style.label">Token</label>
       <input
+        data-test-token-input
         type="text"
         id="token"
         placeholder="Token"
@@ -20,7 +22,11 @@
         v-model="token"
       />
       <div :class="$style.error">{{ errors.token }}</div>
-      <button type="submit" :class="$style.button" :disabled="isLoading">
+      <button
+        :disabled="!name || !token || isLoading"
+        type="submit"
+        :class="$style.button"
+      >
         {{ isLoading ? "Login in..." : "Login" }}
       </button>
     </form>
@@ -31,20 +37,10 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import * as Yup from "yup";
-import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { setSession } from "@/modules/session";
-
-const isValidToken = (value: string | undefined) => {
-  if (!value) {
-    return false;
-  }
-  const validate = /^[a-zA-Z]{16}$/;
-  return validate.test(value);
-};
-
+import { isValidToken, timer } from "@/utils";
 const router = useRouter();
-const $toast = useToast();
 
 const name = ref("");
 const token = ref("");
@@ -92,10 +88,6 @@ const handleLogin = async () => {
   } finally {
     isLoading.value = false;
   }
-};
-
-const timer = async (time: number) => {
-  await new Promise((resolve) => setTimeout(resolve, time));
 };
 </script>
 

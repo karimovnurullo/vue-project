@@ -27,18 +27,17 @@ import { Navbar, Book, Loader } from "@/components";
 import { useStore } from "@/store";
 
 const store = useStore();
-
 const prevPage = () => {
   store.pageCount--;
-  store.getPagination(localStorage.getItem("search")!);
+  store.getBook(localStorage.getItem("search")!);
 };
 const nextPage = () => {
   store.pageCount++;
-  store.getPagination(localStorage.getItem("search")!);
+  store.getBooks(localStorage.getItem("search")!);
 };
 
 onMounted(() => {
-  store.getPagination(localStorage.getItem("search")!);
+  store.getBooks(localStorage.getItem("search")!);
 });
 </script>
 

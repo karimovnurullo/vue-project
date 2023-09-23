@@ -48,6 +48,14 @@
          &:hover {
             border-color: rgba(0, 106, 255, 1);
          }
+
+         &:disabled {
+            opacity: 0.6;
+
+            &:hover {
+               cursor: no-drop;
+            }
+         }
       }
 
       .haveAccount {

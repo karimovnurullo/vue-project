@@ -31,9 +31,11 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <router-link to="/favorites" :class="$style.favorite">
-          <!-- <i class="fa-solid fa-heart"></i> -->
-          <span v-if="store.favorites.length > 0"></span>
+          <!-- <div @click="handleFavorite" :class="$style.favorite"> -->
+          <span v-if="store.favorites.length > 0" data-favorite-icon></span>
           <i class="fa-regular fa-heart"></i>
+          <!-- </div> -->
+          <!-- <i class="fa-solid fa-heart"></i> -->
         </router-link>
         <div :class="$style.profile" id="avatar" @click="handleDropdown">
           <!-- {{ user && user.displayName ? user.displayName.charAt(0) : "" }} -->
@@ -61,6 +63,11 @@ import { useRouter } from "vue-router";
 import { getSession, clearSession } from "@/modules/session";
 import { useStore } from "@/store";
 
+// const props = defineProps({
+//   isSearch: { type: Boolean },
+//   isback: { type: Boolean },
+// });
+
 const props = defineProps({
   isSearch: { type: Boolean, required: true },
   isback: { type: Boolean, required: true },
@@ -82,9 +89,13 @@ const getUser = async () => {
 };
 
 const handleSubmit = async () => {
-  store.getPagination(searchValue.value);
+  const value = searchValue.value.trim();
+  if (value === "") {
+    searchValue.value = "";
+  }
+  store.getBooks(value);
   store.pageCount = 1;
-  localStorage.setItem("search", searchValue.value);
+  localStorage.setItem("search", value);
 };
 const handleDropdown = async () => (dropdown.value = !dropdown.value);
 
@@ -101,7 +112,9 @@ const handleLogout = () => {
   // AuthService.logout();
   clearSession();
   router.push("/auth/login");
-  localStorage.removeItem("expired");
+};
+const handleFavorite = () => {
+  router.push("/favorites");
 };
 
 const handleClickOutside = (event: MouseEvent) => {
