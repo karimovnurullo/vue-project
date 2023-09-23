@@ -5,41 +5,6 @@ import { HomeService, Mappers, Types } from "@/modules/home";
 
 const FAVORITES_KEY = "favorites";
 
-// export const useStore = defineStore("storeId", () => {
-//   let books = ref<Types.IEntity.Book[]>([]);
-//   let book = ref<Types.IEntity.Book>();
-//   let loading = true;
-//   let error = "";
-//   let pageCount = 1;
-
-//   const getBooks = async (search = "programming") => {
-//     try {
-//       const { data } = await HomeService.GetBooks({
-//         search,
-//         startIdx: pageCount,
-//       });
-//       books.value = data.items.map((book: Types.IEntity.Book) =>
-//         Mappers.Book(book)
-//       );
-//       loading = false;
-//     } catch (error: any) {
-//       console.log(error?.message);
-//       error = "Books fetching error";
-//     }
-//   };
-//   const getBook = async (bookId: string) => {
-//     try {
-//       const { data } = await HomeService.GetBook({ bookId });
-
-//       book.value = Mappers.Book(data);
-//       loading = false;
-//     } catch (error: any) {
-//       console.log(error?.message);
-//       error = "Book fetching error";
-//     }
-//   };
-// });
-
 const useStore = defineStore("storeId", {
   state: (): State => ({
     book: {
@@ -62,10 +27,11 @@ const useStore = defineStore("storeId", {
     favorites: JSON.parse(localStorage.getItem(FAVORITES_KEY)!) || [],
     loading: true,
     pageCount: 1,
+    notFound: false,
     error: "",
   }),
   actions: {
-    async getBook(bookId: string) {
+    async getBook(bookId: string | string[]) {
       this.loading = true;
       try {
         const { data } = await HomeService.GetBook(bookId);
@@ -79,9 +45,16 @@ const useStore = defineStore("storeId", {
     async getSimilarBook(search: string) {
       try {
         const { data } = await HomeService.GetSimilarBooks(search);
-        this.similarBooks = data.items.map((book: Types.IEntity.Book) =>
-          Mappers.Book(book)
-        );
+        if (data.items) {
+          this.similarBooks = data.items.map((book: Types.IEntity.Book) =>
+            Mappers.Book(book)
+          );
+          this.notFound = false;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.notFound = true;
+        }
       } catch (error: any) {
         console.log(error?.message);
         this.error = error?.message;
@@ -89,23 +62,31 @@ const useStore = defineStore("storeId", {
       }
     },
 
-    async getBooks(search = "") {
+    async getBooks(value: string) {
       this.loading = true;
       try {
         const { data } = await HomeService.GetBooks({
-          search: search.trim() !== "" ? search : "programming",
+          search: value ? value : "programming",
           startIdx: this.pageCount,
         });
 
-        this.books = data.items.map((book: Types.IEntity.Book) =>
-          Mappers.Book(book)
-        );
-
-        this.loading = false;
+        if (data.items) {
+          this.books = data.items.map((book: Types.IEntity.Book) =>
+            Mappers.Book(book)
+          );
+          this.notFound = false;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.notFound = true;
+        }
       } catch (error: any) {
         console.log(error?.message);
         this.error = "Books fetching error";
       }
+    },
+    setLoading(loading: boolean) {
+      this.loading = loading;
     },
     addFavorite(bookId: string) {
       const oldBooks = [...this.books];
@@ -116,10 +97,8 @@ const useStore = defineStore("storeId", {
         this.updateLocalStorage();
       }
     },
-
     removeFavorite(bookId: string) {
       const bookIdx = this.favorites.findIndex((book) => book.id === bookId);
-
       if (bookIdx !== -1) {
         this.favorites.splice(bookIdx, 1);
         this.updateLocalStorage();

@@ -1,10 +1,17 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import { LoginToken } from "@/pages";
-import { timer } from "@/utils";
+import { isValidToken, timer } from "@/utils";
+import { createPinia, setActivePinia } from "pinia";
+import { useStore } from "@/store";
+
+vi.mock("vue-router");
 
 describe("Login component ", () => {
-  test("Is disabled button while name input is empty", () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+  test("Is not active button while name input is empty", () => {
     const loginComponent = mount(LoginToken);
     const button = loginComponent.get("button");
     const isButtonDisabled = button.attributes("disabled") === "";
@@ -31,5 +38,27 @@ describe("Login component ", () => {
     const end = Date.now();
     const elapsed = end - start;
     expect(elapsed).toBeGreaterThanOrEqual(delay);
+  });
+
+  test("is valid Token", async () => {
+    expect(isValidToken("sdfdsasdfffdsada")).toBe(true);
+    expect(isValidToken("abcdef1234567890")).toBe(false);
+    expect(isValidToken("sdfdsasdfffdsada1")).toBe(false);
+    expect(isValidToken("sdfdsasdfffdsad")).toBe(false);
+  });
+
+  test("The login button is pressed", async () => {
+    const loginComponent = mount(LoginToken, {
+      props: { initialLoading: true },
+    });
+    const button = loginComponent.get("button").text();
+    expect(button).toBe("Login in...");
+  });
+  test("The login button is not pressed", async () => {
+    const loginComponent = mount(LoginToken, {
+      props: { initialLoading: false },
+    });
+    const button = loginComponent.get("button").text();
+    expect(button).toBe("Login");
   });
 });

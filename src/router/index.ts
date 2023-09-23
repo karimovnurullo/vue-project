@@ -39,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
   const user = getSession();
 
   if (to.meta.home) {
-    if (user) {                                         
+    if (user) {
       next();
     } else {
       next("/auth/login");

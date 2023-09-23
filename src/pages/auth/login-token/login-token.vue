@@ -42,6 +42,8 @@ import { setSession } from "@/modules/session";
 import { isValidToken, timer } from "@/utils";
 const router = useRouter();
 
+const props = defineProps<{ initialLoading?: boolean }>();
+
 const name = ref("");
 const token = ref("");
 interface FormErrors {
@@ -60,7 +62,7 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-const isLoading = ref(false);
+const isLoading = ref(!!props.initialLoading);
 
 const handleLogin = async () => {
   isLoading.value = true;

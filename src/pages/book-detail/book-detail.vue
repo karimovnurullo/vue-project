@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.bookDetail">
-    <Navbar :isSearch="false" :isback="true" />
+    <Navbar :isSearch="false" :isback="true" :user="user!" />
     <div :class="$style.wrapper">
       <Loader v-if="store.loading" />
       <template v-else>
@@ -60,7 +60,8 @@
       </template>
     </div>
     <h3 :class="$style.similar">Similar books</h3>
-    <div :class="$style.books" v-if="!store.loading">
+    <div v-if="!store.loading && store.notFound">Not found similar books</div>
+    <div :class="$style.books" v-else>
       <Book v-for="book in store.similarBooks" :book="book" :key="book.id" />
     </div>
   </div>
@@ -71,10 +72,12 @@ import { useRoute } from "vue-router";
 import { Navbar, Loader, Book } from "@/components";
 import noImage from "@/assets/images/no-image.png";
 import { useStore } from "@/store";
+import { getSession } from "@/modules/session";
 
 const route = useRoute();
 const store = useStore();
 const search = ref("");
+const user = ref<string | null>(getSession());
 
 watch(
   () => route.params.id,
@@ -84,10 +87,11 @@ watch(
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 );
+
+if (!store.loading) store.getSimilarBook(store.book?.title?.split(" ")[0]);
 onMounted(() => {
   window.scrollTo({ top: 0 });
   store.getBook(route.params.id);
-  store.getSimilarBook(store.book?.title?.split(" ")[0]);
 });
 </script>
 

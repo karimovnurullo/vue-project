@@ -44,7 +44,7 @@ export namespace Api {
       }
     }
     export namespace Single {
-      export type Request = string;
+      export type Request = string | string[];
       export interface Respons {
         data: IEntity.Book;
       }

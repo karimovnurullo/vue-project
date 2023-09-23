@@ -9,14 +9,27 @@ const API_KEY = "AIzaSyBoyt1h7Rb0VLFmkFMdIO1EqLnE3OUaTtg";
 
 export const GetBook = (bookId: Api.Book.Single.Request) =>
   axios.get<Api.Book.Single.Respons>(
-    `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${API_KEY}`
+    `https://www.googleapis.com/books/v1/volumes/${bookId}`
   );
 export const GetSimilarBooks = (bookTitle: Api.Book.Similar.Request) =>
   axios.get<Api.Book.Similar.Respons>(
-    `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&maxResults=40&startIndex=1&key=${API_KEY}`
+    `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&maxResults=40&startIndex=1`
   );
 
 export const GetBooks = ({ search, startIdx }: Api.Book.List.Request) =>
   axios.get<Api.Book.List.Respons>(
-    `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=20&startIndex=${startIdx}&key=${API_KEY}`
+    `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=20&startIndex=${startIdx}`
   );
+// export const GetBook = (bookId: Api.Book.Single.Request) =>
+//   axios.get<Api.Book.Single.Respons>(
+//     `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${API_KEY}`
+//   );
+// export const GetSimilarBooks = (bookTitle: Api.Book.Similar.Request) =>
+//   axios.get<Api.Book.Similar.Respons>(
+//     `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&maxResults=40&startIndex=1&key=${API_KEY}`
+//   );
+
+// export const GetBooks = ({ search, startIdx }: Api.Book.List.Request) =>
+//   axios.get<Api.Book.List.Respons>(
+//     `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=20&startIndex=${startIdx}&key=${API_KEY}`
+//   );
